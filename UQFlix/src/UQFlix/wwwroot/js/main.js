@@ -16,48 +16,88 @@ webpackJsonp([0],{
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 168);
 	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
+	var _reactRedux = __webpack_require__(/*! react-redux */ 229);
 	
-	var _reduxStore = __webpack_require__(/*! ./store/reduxStore */ 253);
+	var _reduxStore = __webpack_require__(/*! ./store/reduxStore */ 250);
 	
 	var _reduxStore2 = _interopRequireDefault(_reduxStore);
 	
-	var _index = __webpack_require__(/*! ./reducers/index */ 258);
+	var _index = __webpack_require__(/*! ./reducers/index */ 255);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _KanbanBoardContainer = __webpack_require__(/*! ./components/KanbanBoardContainer */ 562);
+	var _Home = __webpack_require__(/*! ./components/Home */ 558);
 	
-	var _KanbanBoardContainer2 = _interopRequireDefault(_KanbanBoardContainer);
+	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _KanbanBoard = __webpack_require__(/*! ./components/KanbanBoard */ 563);
+	var _Search = __webpack_require__(/*! ./components/Search */ 640);
 	
-	var _KanbanBoard2 = _interopRequireDefault(_KanbanBoard);
+	var _Search2 = _interopRequireDefault(_Search);
 	
-	var _EditCard = __webpack_require__(/*! ./components/EditCard */ 795);
+	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 641);
 	
-	var _EditCard2 = _interopRequireDefault(_EditCard);
+	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
-	var _NewCard = __webpack_require__(/*! ./components/NewCard */ 797);
+	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 647);
 	
-	var _NewCard2 = _interopRequireDefault(_NewCard);
+	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
+	
+	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 648);
+	
+	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	
+	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 605);
+	
+	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 756);
+	
+	var _spacing2 = _interopRequireDefault(_spacing);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
+	// Needed for onTouchTap
+	// http://stackoverflow.com/a/34015469/988941
+	(0, _reactTapEventPlugin2.default)();
+	
+	var muiTheme = (0, _getMuiTheme2.default)({
+	  spacing: _spacing2.default,
+	  fontFamily: 'Roboto, sans-serif',
+	  palette: {
+	    primary1Color: _colors.blueGrey800,
+	    primary2Color: _colors.blueGrey500,
+	    primary3Color: _colors.grey400,
+	    accent1Color: _colors.deepOrange900,
+	    accent2Color: _colors.yellow100,
+	    accent3Color: _colors.yellow500,
+	    textColor: _colors.white,
+	    alternateTextColor: _colors.white,
+	    canvasColor: _colors.blueGrey900,
+	    borderColor: _colors.grey300,
+	    disabledColor: (0, _colorManipulator.fade)(_colors.darkBlack, 0.3),
+	    pickerHeaderColor: _colors.cyan500,
+	    clockCircleColor: (0, _colorManipulator.fade)(_colors.darkBlack, 0.07),
+	    shadowColor: _colors.fullBlack
+	  }
+	});
+	
 	(0, _reactDom.render)(_react2.default.createElement(
-	  _reactRedux.Provider,
-	  { store: _reduxStore2.default },
+	  _MuiThemeProvider2.default,
+	  { muiTheme: muiTheme },
 	  _react2.default.createElement(
-	    _reactRouter.Router,
-	    { history: _reactRouter.browserHistory },
+	    'div',
+	    { style: { backgroundColor: _colors.blueGrey900, width: "100%", height: "100%" } },
 	    _react2.default.createElement(
-	      _reactRouter.Route,
-	      { component: _KanbanBoardContainer2.default },
+	      _reactRedux.Provider,
+	      { store: _reduxStore2.default },
 	      _react2.default.createElement(
-	        _reactRouter.Route,
-	        { path: '/', component: _KanbanBoard2.default },
-	        _react2.default.createElement(_reactRouter.Route, { path: 'new', component: _NewCard2.default }),
-	        _react2.default.createElement(_reactRouter.Route, { path: 'edit/:card_id', component: _EditCard2.default })
+	        _reactRouter.Router,
+	        { history: _reactRouter.browserHistory },
+	        _react2.default.createElement(
+	          _reactRouter.Route,
+	          { path: '/', component: _Home2.default },
+	          _react2.default.createElement(_reactRouter.Route, { path: 'search/:query', component: _Search2.default })
+	        )
 	      )
 	    )
 	  )
@@ -65,7 +105,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 253:
+/***/ 250:
 /*!*********************************!*\
   !*** ./app/store/reduxStore.js ***!
   \*********************************/
@@ -77,17 +117,17 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(/*! redux */ 238);
+	var _redux = __webpack_require__(/*! redux */ 236);
 	
-	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 254);
+	var _reduxThunk = __webpack_require__(/*! redux-thunk */ 251);
 	
 	var _reduxThunk2 = _interopRequireDefault(_reduxThunk);
 	
-	var _reduxThrottle = __webpack_require__(/*! redux-throttle */ 255);
+	var _reduxThrottle = __webpack_require__(/*! redux-throttle */ 252);
 	
 	var _reduxThrottle2 = _interopRequireDefault(_reduxThrottle);
 	
-	var _index = __webpack_require__(/*! ../reducers/index */ 258);
+	var _index = __webpack_require__(/*! ../reducers/index */ 255);
 	
 	var _index2 = _interopRequireDefault(_index);
 	
@@ -98,7 +138,7 @@ webpackJsonp([0],{
 	  trailing: false
 	};
 	
-	var throttleMiddleWare = (0, _reduxThrottle2.default)(500, defaultThrottleOption); //default 500ms,
+	var throttleMiddleWare = (0, _reduxThrottle2.default)(500, defaultThrottleOption); //default 500ms, 
 	
 	var reduxStore = (0, _redux.createStore)(_index2.default, (0, _redux.applyMiddleware)(_reduxThunk2.default, throttleMiddleWare));
 	
@@ -106,7 +146,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 258:
+/***/ 255:
 /*!*******************************!*\
   !*** ./app/reducers/index.js ***!
   \*******************************/
@@ -118,13 +158,13 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _redux = __webpack_require__(/*! redux */ 238);
+	var _redux = __webpack_require__(/*! redux */ 236);
 	
-	var _cardReducer = __webpack_require__(/*! ./cardReducer */ 259);
+	var _cardReducer = __webpack_require__(/*! ./cardReducer */ 256);
 	
 	var _cardReducer2 = _interopRequireDefault(_cardReducer);
 	
-	var _draftCardReducer = __webpack_require__(/*! ./draftCardReducer */ 561);
+	var _draftCardReducer = __webpack_require__(/*! ./draftCardReducer */ 557);
 	
 	var _draftCardReducer2 = _interopRequireDefault(_draftCardReducer);
 	
@@ -139,7 +179,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 259:
+/***/ 256:
 /*!*************************************!*\
   !*** ./app/reducers/cardReducer.js ***!
   \*************************************/
@@ -151,13 +191,13 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
+	var _constants = __webpack_require__(/*! ../constants */ 257);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
-	var _cardUtils = __webpack_require__(/*! ../cardUtils */ 261);
+	var _cardUtils = __webpack_require__(/*! ../cardUtils */ 258);
 	
-	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 559);
+	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 555);
 	
 	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 	
@@ -166,10 +206,11 @@ webpackJsonp([0],{
 	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
 	var initialState = [];
+	var initialAction = { type: 'initial state' };
 	
 	var cards = function cards() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	  var action = arguments[1];
+	  var action = arguments.length <= 1 || arguments[1] === undefined ? initialAction : arguments[1];
 	
 	  switch (action.type) {
 	    case _constants2.default.FETCH_CARDS_SUCCESS:
@@ -315,7 +356,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 260:
+/***/ 257:
 /*!**************************!*\
   !*** ./app/constants.js ***!
   \**************************/
@@ -330,7 +371,7 @@ webpackJsonp([0],{
 	
 	  //API_URL: 'http://kanbanapi.pro-react.com';    //original value
 	
-	  API_URL: 'http://localhost:55685/api', //reads from ASP.NET CORE
+	  API_URL: 'http://localhost:55685/api', //reads from ASP.NET CORE 
 	
 	  CARD: 'card',
 	
@@ -375,7 +416,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 261:
+/***/ 258:
 /*!**************************!*\
   !*** ./app/cardUtils.js ***!
   \**************************/
@@ -389,7 +430,7 @@ webpackJsonp([0],{
 	exports.getCard = getCard;
 	exports.getCardIndex = getCardIndex;
 	
-	var _babelPolyfill = __webpack_require__(/*! babel-polyfill */ 262);
+	var _babelPolyfill = __webpack_require__(/*! babel-polyfill */ 259);
 	
 	function getCard(cards, id) {
 	    if (!Array.isArray(cards)) {
@@ -411,7 +452,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 561:
+/***/ 557:
 /*!******************************************!*\
   !*** ./app/reducers/draftCardReducer.js ***!
   \******************************************/
@@ -423,11 +464,11 @@ webpackJsonp([0],{
 	  value: true
 	});
 	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
+	var _constants = __webpack_require__(/*! ../constants */ 257);
 	
 	var _constants2 = _interopRequireDefault(_constants);
 	
-	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 559);
+	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 555);
 	
 	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
 	
@@ -443,10 +484,11 @@ webpackJsonp([0],{
 	  color: '#c9c9c9',
 	  tasks: []
 	};
+	var initialAction = { type: 'initial state' };
 	
 	var draftCard = function draftCard() {
 	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	  var action = arguments[1];
+	  var action = arguments.length <= 1 || arguments[1] === undefined ? initialAction : arguments[1];
 	
 	  switch (action.type) {
 	    case _constants2.default.CREATE_DRAFT:
@@ -472,16 +514,16 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 562:
-/*!************************************************!*\
-  !*** ./app/components/KanbanBoardContainer.js ***!
-  \************************************************/
+/***/ 558:
+/*!********************************!*\
+  !*** ./app/components/Home.js ***!
+  \********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -490,17 +532,21 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _redux = __webpack_require__(/*! redux */ 238);
+	var _Header = __webpack_require__(/*! ./Header */ 1013);
 	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
+	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _KanbanBoard = __webpack_require__(/*! ../components/KanbanBoard */ 563);
+	var _Footer = __webpack_require__(/*! ./Footer */ 1014);
 	
-	var _KanbanBoard2 = _interopRequireDefault(_KanbanBoard);
+	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _CardActionCreators = __webpack_require__(/*! ../actions/CardActionCreators */ 794);
+	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 1015);
 	
-	var _CardActionCreators2 = _interopRequireDefault(_CardActionCreators);
+	var _Suggestions2 = _interopRequireDefault(_Suggestions);
+	
+	var _Genres = __webpack_require__(/*! ./Genres */ 1018);
+	
+	var _Genres2 = _interopRequireDefault(_Genres);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -510,61 +556,413 @@ webpackJsonp([0],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var KanbanBoardContainer = function (_Component) {
-	  _inherits(KanbanBoardContainer, _Component);
+	var Home = function (_React$Component) {
+	    _inherits(Home, _React$Component);
 	
-	  function KanbanBoardContainer() {
-	    _classCallCheck(this, KanbanBoardContainer);
+	    function Home(props) {
+	        _classCallCheck(this, Home);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(KanbanBoardContainer).apply(this, arguments));
-	  }
+	        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 	
-	  _createClass(KanbanBoardContainer, [{
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      this.props.fetchCards();
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
 	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var kanbanBoard = this.props.children && _react2.default.cloneElement(this.props.children, {
-	        cards: this.props.cards
-	      });
 	
-	      return kanbanBoard;
-	    }
-	  }]);
+	    _createClass(Home, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { height: 'calc(100% - 64px)', overflowY: 'auto', display: 'block', position: 'absolute', width: '100%' } },
+	                    _react2.default.createElement(_Suggestions2.default, null),
+	                    _react2.default.createElement(_Genres2.default, null)
+	                )
+	            );
+	        }
+	    }]);
 	
-	  return KanbanBoardContainer;
-	}(_react.Component);
+	    return Home;
+	}(_react2.default.Component);
 	
-	function mapStoreToProps(storeState) {
-	  return {
-	    cards: storeState.cards
-	  };
-	}
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    fetchCards: function fetchCards() {
-	      return dispatch(_CardActionCreators2.default.fetchCards());
-	    }
-	  };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(KanbanBoardContainer);
+	exports.default = Home;
 
 /***/ },
 
-/***/ 563:
+/***/ 640:
+/*!**********************************!*\
+  !*** ./app/components/Search.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 559);
+	
+	var _IconMenu2 = _interopRequireDefault(_IconMenu);
+	
+	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 618);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 620);
+	
+	var _FontIcon2 = _interopRequireDefault(_FontIcon);
+	
+	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 624);
+	
+	var _expandMore2 = _interopRequireDefault(_expandMore);
+	
+	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 626);
+	
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+	
+	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 627);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 633);
+	
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+	
+	var _Toolbar = __webpack_require__(/*! material-ui/Toolbar */ 635);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Search = function (_React$Component) {
+	    _inherits(Search, _React$Component);
+	
+	    function Search(props) {
+	        _classCallCheck(this, Search);
+	
+	        var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Search, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                _Toolbar.Toolbar,
+	                null,
+	                _react2.default.createElement(
+	                    _Toolbar.ToolbarGroup,
+	                    { firstChild: true },
+	                    _react2.default.createElement(
+	                        _DropDownMenu2.default,
+	                        { value: this.state.value, onChange: this.handleChange },
+	                        _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'All Broadcasts' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'All Voice' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: 'All Text' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 4, primaryText: 'Complete Voice' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 5, primaryText: 'Complete Text' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 6, primaryText: 'Active Voice' }),
+	                        _react2.default.createElement(_MenuItem2.default, { value: 7, primaryText: 'Active Text' })
+	                    )
+	                ),
+	                _react2.default.createElement(
+	                    _Toolbar.ToolbarGroup,
+	                    null,
+	                    _react2.default.createElement(_Toolbar.ToolbarTitle, { text: 'Options' }),
+	                    _react2.default.createElement(_FontIcon2.default, { className: 'muidocs-icon-custom-sort' }),
+	                    _react2.default.createElement(_Toolbar.ToolbarSeparator, null),
+	                    _react2.default.createElement(_RaisedButton2.default, { label: 'Create Broadcast', primary: true }),
+	                    _react2.default.createElement(
+	                        _IconMenu2.default,
+	                        { iconButtonElement: _react2.default.createElement(
+	                                _IconButton2.default,
+	                                { touch: true },
+	                                _react2.default.createElement(_expandMore2.default, null)
+	                            ) },
+	                        _react2.default.createElement(_MenuItem2.default, { primaryText: 'Download' }),
+	                        _react2.default.createElement(_MenuItem2.default, { primaryText: 'More Info' })
+	                    )
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Search;
+	}(_react2.default.Component);
+	
+	exports.default = Search;
+
+/***/ },
+
+/***/ 1012:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/action/search.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 593);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 602);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionSearch = function ActionSearch(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
+	  );
+	};
+	ActionSearch = (0, _pure2.default)(ActionSearch);
+	ActionSearch.displayName = 'ActionSearch';
+	ActionSearch.muiName = 'SvgIcon';
+	
+	exports.default = ActionSearch;
+
+/***/ },
+
+/***/ 1013:
+/*!**********************************!*\
+  !*** ./app/components/Header.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 559);
+	
+	var _IconMenu2 = _interopRequireDefault(_IconMenu);
+	
+	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 618);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 620);
+	
+	var _FontIcon2 = _interopRequireDefault(_FontIcon);
+	
+	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 624);
+	
+	var _expandMore2 = _interopRequireDefault(_expandMore);
+	
+	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 626);
+	
+	var _MenuItem2 = _interopRequireDefault(_MenuItem);
+	
+	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 627);
+	
+	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
+	
+	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 633);
+	
+	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
+	
+	var _TextField = __webpack_require__(/*! material-ui/TextField */ 805);
+	
+	var _TextField2 = _interopRequireDefault(_TextField);
+	
+	var _AppBar = __webpack_require__(/*! material-ui/AppBar */ 800);
+	
+	var _AppBar2 = _interopRequireDefault(_AppBar);
+	
+	var _search = __webpack_require__(/*! material-ui/svg-icons/action/search */ 1012);
+	
+	var _search2 = _interopRequireDefault(_search);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Header = function (_React$Component) {
+	    _inherits(Header, _React$Component);
+	
+	    function Header(props) {
+	        _classCallCheck(this, Header);
+	
+	        var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Header, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(_AppBar2.default, { title: 'UQFlix', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
+	                    'div',
+	                    null,
+	                    _react2.default.createElement(_TextField2.default, { hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { marginLeft: '-24px', display: 'inline-block' } },
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { top: '18px', position: 'absolute' } },
+	                            _react2.default.createElement(_search2.default, null)
+	                        )
+	                    )
+	                ) });
+	        }
+	    }]);
+	
+	    return Header;
+	}(_react2.default.Component);
+	
+	exports.default = Header;
+
+/***/ },
+
+/***/ 1014:
+/*!**********************************!*\
+  !*** ./app/components/Footer.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Footer = function (_React$Component) {
+	    _inherits(Footer, _React$Component);
+	
+	    function Footer(props) {
+	        _classCallCheck(this, Footer);
+	
+	        return _possibleConstructorReturn(this, (Footer.__proto__ || Object.getPrototypeOf(Footer)).call(this, props));
+	    }
+	
+	    _createClass(Footer, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(
+	                    'span',
+	                    { style: { color: _colors.grey200 } },
+	                    'Hacked together by '
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'http://www.mgtlake.com' },
+	                    'Matthew Lake'
+	                ),
+	                _react2.default.createElement(
+	                    'span',
+	                    { style: { color: _colors.grey200 } },
+	                    ' and '
+	                ),
+	                _react2.default.createElement(
+	                    'a',
+	                    { href: 'http://www.illogicalbit.com' },
+	                    'Joseph Garrone'
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Footer;
+	}(_react2.default.Component);
+	
+	exports.default = Footer;
+
+/***/ },
+
+/***/ 1015:
 /*!***************************************!*\
-  !*** ./app/components/KanbanBoard.js ***!
+  !*** ./app/components/Suggestions.js ***!
   \***************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -573,17 +971,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDnd = __webpack_require__(/*! react-dnd */ 564);
+	var _Movie = __webpack_require__(/*! ./Movie */ 1017);
 	
-	var _reactDndHtml5Backend = __webpack_require__(/*! react-dnd-html5-backend */ 685);
+	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _reactDndHtml5Backend2 = _interopRequireDefault(_reactDndHtml5Backend);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 168);
-	
-	var _List = __webpack_require__(/*! ./List */ 779);
-	
-	var _List2 = _interopRequireDefault(_List);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -593,71 +985,80 @@ webpackJsonp([0],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var KanbanBoard = function (_Component) {
-	  _inherits(KanbanBoard, _Component);
+	var Suggestions = function (_React$Component) {
+	    _inherits(Suggestions, _React$Component);
 	
-	  function KanbanBoard() {
-	    _classCallCheck(this, KanbanBoard);
+	    function Suggestions(props) {
+	        _classCallCheck(this, Suggestions);
 	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(KanbanBoard).apply(this, arguments));
-	  }
+	        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
 	
-	  _createClass(KanbanBoard, [{
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'app' },
-	        _react2.default.createElement(
-	          _reactRouter.Link,
-	          { to: '/new', className: 'float-button' },
-	          '+'
-	        ),
-	        _react2.default.createElement(_List2.default, { id: 'todo',
-	          title: 'To Do',
-	          cards: this.props.cards.filter(function (card) {
-	            return card.status === "todo";
-	          }) }),
-	        _react2.default.createElement(_List2.default, { id: 'in-progress',
-	          title: 'In Progress',
-	          cards: this.props.cards.filter(function (card) {
-	            return card.status === "in-progress";
-	          }) }),
-	        _react2.default.createElement(_List2.default, { id: 'done',
-	          title: 'Done',
-	          cards: this.props.cards.filter(function (card) {
-	            return card.status === "done";
-	          }) }),
-	        this.props.children
-	      );
+	        _this.state = {
+	            suggestions: [{
+	                title: "Hurt Locker",
+	                year: "2009",
+	                description: "Shooty shooty pew pew!",
+	                image: "https://upload.wikimedia.org/wikipedia/en/6/6c/HLposterUSA2.jpg"
+	            }, {
+	                title: "Iron Man",
+	                year: "2008",
+	                description: "OMG its Robert Downey Jr.!",
+	                image: "https://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG"
+	            }, {
+	                title: "Inception",
+	                year: "2010",
+	                description: "Movie in a movie, wot?!?",
+	                image: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
+	            }]
+	        };
+	        return _this;
 	    }
-	  }]);
 	
-	  return KanbanBoard;
-	}(_react.Component);
+	    _createClass(Suggestions, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { style: { padding: '20px' } },
+	                _react2.default.createElement(
+	                    'h2',
+	                    { style: { color: _colors.white, fontSize: '2rem', marginTop: '0px' } },
+	                    'Suggestions'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
+	                    this.state.suggestions.map(function (suggestion, index, source) {
+	                        return _react2.default.createElement(_Movie2.default, { key: index, title: suggestion.title, image: suggestion.image, subtitle: suggestion.year, first: index == 0, last: index == source.length - 1 });
+	                    }, this)
+	                )
+	            );
+	        }
+	    }]);
 	
-	;
-	KanbanBoard.propTypes = {
-	  cards: _react.PropTypes.arrayOf(_react.PropTypes.object)
-	};
+	    return Suggestions;
+	}(_react2.default.Component);
 	
-	exports.default = (0, _reactDnd.DragDropContext)(_reactDndHtml5Backend2.default)(KanbanBoard);
+	exports.default = Suggestions;
 
 /***/ },
 
-/***/ 779:
-/*!********************************!*\
-  !*** ./app/components/List.js ***!
-  \********************************/
+/***/ 1017:
+/*!*********************************!*\
+  !*** ./app/components/Movie.js ***!
+  \*********************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
-	
-	var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
@@ -665,21 +1066,108 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactDnd = __webpack_require__(/*! react-dnd */ 564);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
 	
-	var _Card = __webpack_require__(/*! ./Card */ 780);
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
-	var _Card2 = _interopRequireDefault(_Card);
+	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
-	var _constants2 = _interopRequireDefault(_constants);
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 	
-	var _CardActionCreators = __webpack_require__(/*! ../actions/CardActionCreators */ 794);
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var _CardActionCreators2 = _interopRequireDefault(_CardActionCreators);
+	var Movie = function (_React$Component) {
+	    _inherits(Movie, _React$Component);
 	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
+	    function Movie(props) {
+	        _classCallCheck(this, Movie);
+	
+	        var _this = _possibleConstructorReturn(this, (Movie.__proto__ || Object.getPrototypeOf(Movie)).call(this, props));
+	
+	        _this.state = {
+	            hovered: false
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Movie, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState(_defineProperty({}, event.target.name, value));
+	        }
+	    }, {
+	        key: 'handleEnter',
+	        value: function handleEnter() {
+	            this.setState({ hovered: true });
+	        }
+	    }, {
+	        key: 'handleLeave',
+	        value: function handleLeave() {
+	            this.setState({ hovered: false });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var height = this.props.small ? 230 : 440;
+	            var width = this.props.small ? 135 : 243;
+	            var imgHeight = this.props.small ? height - 30 : height - 80;
+	            var padding = 20;
+	            var size = this.props.small ? 1.0 : 1.5;
+	            return _react2.default.createElement(
+	                'div',
+	                { style: { height: height + 'px', width: width + 'px', display: 'inline-block', margin: '0px ' + (this.props.last ? '0px' : padding + 'px') + ' 0px ' + (this.props.first ? '0px' : padding + 'px') } },
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { position: 'relative', height: imgHeight + 'px', width: '100%' }, name: 'hovered', onMouseOver: this.handleEnter.bind(this), onMouseOut: this.handleLeave.bind(this) },
+	                    _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image }),
+	                    _react2.default.createElement('div', { style: { transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms', position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%', opacity: this.state.hovered ? '0.75' : '0.0', backgroundColor: _colors.grey900 } })
+	                ),
+	                _react2.default.createElement(
+	                    'h3',
+	                    { style: { color: _colors.white, fontSize: size + 'rem', marginBottom: '0.2rem', marginTop: '0.2rem' } },
+	                    this.props.title
+	                ),
+	                _react2.default.createElement(
+	                    'small',
+	                    { style: { color: _colors.grey200, fontSize: size + 'rem' } },
+	                    this.props.subtitle
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Movie;
+	}(_react2.default.Component);
+	
+	exports.default = Movie;
+
+/***/ },
+
+/***/ 1018:
+/*!**********************************!*\
+  !*** ./app/components/Genres.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 1019);
+	
+	var _GenreSuggestions2 = _interopRequireDefault(_GenreSuggestions);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -689,75 +1177,96 @@ webpackJsonp([0],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var listTargetSpec = {
-	  hover: function hover(props, monitor) {
-	    var dragged = monitor.getItem();
-	    props.dispatch(_CardActionCreators2.default.updateCardStatus(dragged.id, props.id));
-	  }
-	};
+	var Genres = function (_React$Component) {
+	    _inherits(Genres, _React$Component);
 	
-	function collect(connect, monitor) {
-	  return {
-	    connectDropTarget: connect.dropTarget()
-	  };
-	}
+	    function Genres(props) {
+	        _classCallCheck(this, Genres);
 	
-	var List = function (_Component) {
-	  _inherits(List, _Component);
+	        var _this = _possibleConstructorReturn(this, (Genres.__proto__ || Object.getPrototypeOf(Genres)).call(this, props));
 	
-	  function List() {
-	    _classCallCheck(this, List);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(List).apply(this, arguments));
-	  }
-	
-	  _createClass(List, [{
-	    key: 'render',
-	    value: function render() {
-	      var connectDropTarget = this.props.connectDropTarget;
-	
-	
-	      var cards = this.props.cards.map(function (card) {
-	        return _react2.default.createElement(_Card2.default, _extends({ key: card.id }, card));
-	      });
-	
-	      return connectDropTarget(_react2.default.createElement(
-	        'div',
-	        { className: 'list' },
-	        _react2.default.createElement(
-	          'h1',
-	          null,
-	          this.props.title
-	        ),
-	        cards
-	      ));
+	        _this.state = {
+	            genres: [{
+	                title: "Action",
+	                items: [{
+	                    title: "Hurt Locker",
+	                    year: "2009",
+	                    description: "Shooty shooty pew pew!",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/6/6c/HLposterUSA2.jpg"
+	                }, {
+	                    title: "Iron Man",
+	                    year: "2008",
+	                    description: "OMG its Robert Downey Jr.!",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG"
+	                }, {
+	                    title: "Inception",
+	                    year: "2010",
+	                    description: "Movie in a movie, wot?!?",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
+	                }]
+	            }, {
+	                title: "Drama",
+	                items: [{
+	                    title: "Pulp Fiction",
+	                    year: "1994",
+	                    description: "Two mob hitmen",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg"
+	                }, {
+	                    title: "Gladiator",
+	                    year: "2000",
+	                    description: "Pretty much the Roman empire",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/8/8d/Gladiator_ver1.jpg"
+	                }, {
+	                    title: "Titanic",
+	                    year: "1997",
+	                    description: "Shit, we hit an iceberg!",
+	                    image: "https://upload.wikimedia.org/wikipedia/en/2/22/Titanic_poster.jpg"
+	                }]
+	            }]
+	        };
+	        return _this;
 	    }
-	  }]);
 	
-	  return List;
-	}(_react.Component);
+	    _createClass(Genres, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { style: { padding: '20px' } },
+	                _react2.default.createElement(
+	                    'h2',
+	                    { style: { color: _colors.white, fontSize: '2rem', marginTop: '0px' } },
+	                    'Genres'
+	                ),
+	                this.state.genres.map(function (genre, index, source) {
+	                    return _react2.default.createElement(_GenreSuggestions2.default, { style: { padding: (index == 0 ? '0px' : '20px') + ' 0px ' + (index == source.length - 1 ? '0px' : '20px') + ' 0px' }, key: index, title: genre.title, items: genre.items });
+	                }, this)
+	            );
+	        }
+	    }]);
 	
-	;
-	List.propTypes = {
-	  title: _react.PropTypes.string.isRequired,
-	  cards: _react.PropTypes.arrayOf(_react.PropTypes.object),
-	  connectDropTarget: _react.PropTypes.func.isRequired
-	};
+	    return Genres;
+	}(_react2.default.Component);
 	
-	exports.default = (0, _reactRedux.connect)()((0, _reactDnd.DropTarget)(_constants2.default.CARD, listTargetSpec, collect)(List));
+	exports.default = Genres;
 
 /***/ },
 
-/***/ 780:
-/*!********************************!*\
-  !*** ./app/components/Card.js ***!
-  \********************************/
+/***/ 1019:
+/*!********************************************!*\
+  !*** ./app/components/GenreSuggestions.js ***!
+  \********************************************/
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
 	
 	Object.defineProperty(exports, "__esModule", {
-	  value: true
+	    value: true
 	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -766,31 +1275,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _reactAddonsCssTransitionGroup = __webpack_require__(/*! react-addons-css-transition-group */ 781);
+	var _Movie = __webpack_require__(/*! ./Movie */ 1017);
 	
-	var _reactAddonsCssTransitionGroup2 = _interopRequireDefault(_reactAddonsCssTransitionGroup);
+	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _marked = __webpack_require__(/*! marked */ 788);
-	
-	var _marked2 = _interopRequireDefault(_marked);
-	
-	var _reactDnd = __webpack_require__(/*! react-dnd */ 564);
-	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _CheckList = __webpack_require__(/*! ./CheckList */ 789);
-	
-	var _CheckList2 = _interopRequireDefault(_CheckList);
-	
-	var _reactRouter = __webpack_require__(/*! react-router */ 168);
-	
-	var _CardActionCreators = __webpack_require__(/*! ../actions/CardActionCreators */ 794);
-	
-	var _CardActionCreators2 = _interopRequireDefault(_CardActionCreators);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -800,939 +1289,46 @@ webpackJsonp([0],{
 	
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 	
-	var titlePropType = function titlePropType(props, propName, componentName) {
-	  if (props[propName]) {
-	    var value = props[propName];
-	    if (typeof value !== 'string' || value.length > 80) {
-	      return new Error(propName + ' in ' + componentName + ' is longer than 80 characters');
+	var GenreSuggestions = function (_React$Component) {
+	    _inherits(GenreSuggestions, _React$Component);
+	
+	    function GenreSuggestions(props) {
+	        _classCallCheck(this, GenreSuggestions);
+	
+	        return _possibleConstructorReturn(this, (GenreSuggestions.__proto__ || Object.getPrototypeOf(GenreSuggestions)).call(this, props));
 	    }
-	  }
-	};
 	
-	var cardDragSpec = {
-	  beginDrag: function beginDrag(props) {
-	    return {
-	      id: props.id,
-	      status: props.status
-	    };
-	  },
-	  endDrag: function endDrag(props) {
-	    props.persistCardDrag(props);
-	  }
-	};
-	
-	var cardDropSpec = {
-	  hover: function hover(props, monitor) {
-	    var draggedId = monitor.getItem().id;
-	    if (props.id !== draggedId) {
-	      props.updateCardPosition(draggedId, props.id);
-	    }
-	  }
-	};
-	
-	var collectDrag = function collectDrag(connect, monitor) {
-	  return {
-	    connectDragSource: connect.dragSource()
-	  };
-	};
-	
-	var collectDrop = function collectDrop(connect, monitor) {
-	  return {
-	    connectDropTarget: connect.dropTarget()
-	  };
-	};
-	
-	var Card = function (_Component) {
-	  _inherits(Card, _Component);
-	
-	  function Card() {
-	    _classCallCheck(this, Card);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(Card).apply(this, arguments));
-	  }
-	
-	  _createClass(Card, [{
-	    key: 'toggleDetails',
-	    value: function toggleDetails() {
-	      this.props.toggleCardDetails(this.props.id);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _props = this.props;
-	      var connectDragSource = _props.connectDragSource;
-	      var connectDropTarget = _props.connectDropTarget;
-	
-	
-	      var cardDetails = void 0;
-	      if (this.props.showDetails !== false) {
-	        cardDetails = _react2.default.createElement(
-	          'div',
-	          { className: 'card__details' },
-	          _react2.default.createElement('span', { dangerouslySetInnerHTML: { __html: (0, _marked2.default)(this.props.description) } }),
-	          _react2.default.createElement(_CheckList2.default, { cardId: this.props.id,
-	            tasks: this.props.tasks })
-	        );
-	      }
-	
-	      var sideColor = {
-	        position: 'absolute',
-	        zIndex: -1,
-	        top: 0,
-	        bottom: 0,
-	        left: 0,
-	        width: 7,
-	        backgroundColor: this.props.color
-	      };
-	
-	      return connectDropTarget(connectDragSource(_react2.default.createElement(
-	        'div',
-	        { className: 'card' },
-	        _react2.default.createElement('div', { style: sideColor }),
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'card__edit' },
-	          _react2.default.createElement(
-	            _reactRouter.Link,
-	            { to: '/edit/' + this.props.id },
-	            '✎'
-	          )
-	        ),
-	        _react2.default.createElement(
-	          'div',
-	          { className: this.props.showDetails !== false ? "card__title card__title--is-open" : "card__title", onClick: this.toggleDetails.bind(this) },
-	          this.props.title
-	        ),
-	        _react2.default.createElement(
-	          _reactAddonsCssTransitionGroup2.default,
-	          { transitionName: 'toggle',
-	            transitionEnterTimeout: 250,
-	            transitionLeaveTimeout: 250 },
-	          cardDetails
-	        )
-	      )));
-	    }
-	  }]);
-	
-	  return Card;
-	}(_react.Component);
-	
-	Card.propTypes = {
-	  id: _react.PropTypes.number,
-	  title: titlePropType,
-	  description: _react.PropTypes.string,
-	  color: _react.PropTypes.string,
-	  tasks: _react.PropTypes.arrayOf(_react.PropTypes.object),
-	  connectDragSource: _react.PropTypes.func.isRequired,
-	  connectDropTarget: _react.PropTypes.func.isRequired
-	};
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    persistCardDrag: function persistCardDrag(props) {
-	      return dispatch(_CardActionCreators2.default.persistCardDrag(props));
-	    },
-	    updateCardPosition: function updateCardPosition(draggedId, id) {
-	      return dispatch(_CardActionCreators2.default.updateCardPosition(draggedId, id));
-	    },
-	    toggleCardDetails: function toggleCardDetails(id) {
-	      return dispatch(_CardActionCreators2.default.toggleCardDetails(id));
-	    }
-	  };
-	}
-	
-	var dragHighOrderCard = (0, _reactDnd.DragSource)(_constants2.default.CARD, cardDragSpec, collectDrag)(Card);
-	var dragDropHighOrderCard = (0, _reactDnd.DropTarget)(_constants2.default.CARD, cardDropSpec, collectDrop)(dragHighOrderCard);
-	exports.default = (0, _reactRedux.connect)(null, mapDispatchToProps)(dragDropHighOrderCard);
-
-/***/ },
-
-/***/ 789:
-/*!*************************************!*\
-  !*** ./app/components/CheckList.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
-	
-	var _redux = __webpack_require__(/*! redux */ 238);
-	
-	var _TaskActionCreators = __webpack_require__(/*! ../actions/TaskActionCreators */ 790);
-	
-	var _TaskActionCreators2 = _interopRequireDefault(_TaskActionCreators);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var CheckList = function (_Component) {
-	  _inherits(CheckList, _Component);
-	
-	  function CheckList() {
-	    _classCallCheck(this, CheckList);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CheckList).apply(this, arguments));
-	  }
-	
-	  _createClass(CheckList, [{
-	    key: 'checkInputKeyPress',
-	    value: function checkInputKeyPress(evt) {
-	      if (evt.key === 'Enter') {
-	        var newTask = { id: Date.now(), name: evt.target.value, done: false };
-	        this.props.actions.addTask(this.props.cardId, newTask);
-	        evt.target.value = '';
-	      }
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      var _this2 = this;
-	
-	      var tasks = this.props.tasks.map(function (task, taskIndex) {
-	        return _react2.default.createElement(
-	          'li',
-	          { key: task.id, className: 'checklist__task' },
-	          _react2.default.createElement('input', { type: 'checkbox',
-	            checked: task.done,
-	            onChange: _this2.props.actions.toggleTask.bind(_this2, _this2.props.cardId, task, taskIndex) }),
-	          task.name,
-	          ' ',
-	          _react2.default.createElement('a', { href: '#',
-	            className: 'checklist__task--remove',
-	            onClick: _this2.props.actions.deleteTask.bind(_this2, _this2.props.cardId, task, taskIndex) })
-	        );
-	      });
-	
-	      return _react2.default.createElement(
-	        'div',
-	        { className: 'checklist' },
-	        _react2.default.createElement(
-	          'ul',
-	          null,
-	          tasks
-	        ),
-	        _react2.default.createElement('input', { type: 'text',
-	          className: 'checklist--add-task',
-	          placeholder: 'Type then hit Enter to add a task',
-	          onKeyPress: this.checkInputKeyPress.bind(this) })
-	      );
-	    }
-	  }]);
-	
-	  return CheckList;
-	}(_react.Component);
-	
-	CheckList.propTypes = {
-	  cardId: _react.PropTypes.number,
-	  tasks: _react.PropTypes.arrayOf(_react.PropTypes.object)
-	};
-	
-	function mapStoreToProps(storeState) {
-	  return {
-	    cards: storeState.cards
-	  };
-	}
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    actions: (0, _redux.bindActionCreators)(_TaskActionCreators2.default, dispatch)
-	  };
-	}
-	exports.default = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(CheckList);
-
-/***/ },
-
-/***/ 790:
-/*!*******************************************!*\
-  !*** ./app/actions/TaskActionCreators.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _ReduxDispatcher = __webpack_require__(/*! ../ReduxDispatcher */ 791);
-	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _KanbanApi = __webpack_require__(/*! ../api/KanbanApi */ 792);
-	
-	var _KanbanApi2 = _interopRequireDefault(_KanbanApi);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var TaskActionCreators = {
-	  addTask: function addTask(cardId, task) {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.addTask(cardId, task), dispatch, {
-	        request: _constants2.default.CREATE_TASK,
-	        success: _constants2.default.CREATE_TASK_SUCCESS,
-	        failure: _constants2.default.CREATE_TASK_ERROR
-	      }, { cardId: cardId, task: task });
-	    };
-	  },
-	  deleteTask: function deleteTask(cardId, task, taskIndex) {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.deleteTask(cardId, task), dispatch, {
-	        request: _constants2.default.DELETE_TASK,
-	        success: _constants2.default.DELETE_TASK_SUCCESS,
-	        failure: _constants2.default.DELETE_TASK_ERROR
-	      }, { cardId: cardId, task: task, taskIndex: taskIndex });
-	    };
-	  },
-	  toggleTask: function toggleTask(cardId, task, taskIndex) {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.toggleTask(cardId, task), dispatch, {
-	        request: _constants2.default.TOGGLE_TASK,
-	        success: _constants2.default.TOGGLE_TASK_SUCCESS,
-	        failure: _constants2.default.TOGGLE_TASK_ERROR
-	      }, { cardId: cardId, task: task, taskIndex: taskIndex });
-	    };
-	  }
-	};
-	
-	exports.default = TaskActionCreators;
-
-/***/ },
-
-/***/ 791:
-/*!********************************!*\
-  !*** ./app/ReduxDispatcher.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.dispatchAsync = dispatchAsync;
-	
-	__webpack_require__(/*! babel-polyfill */ 262);
-	
-	/**
-	* This does the async request and provides Redux thunk feedback 
-	*/
-	function dispatchAsync(promise, dispatch, types, payload) {
-	  if (typeof dispatch !== 'function') {
-	    throw new Error('dispatch was not a function. Did you miss an update to the call?');
-	  }
-	  var request = types.request;
-	  var success = types.success;
-	  var failure = types.failure;
-	
-	  dispatch({
-	    type: request,
-	    payload: Object.assign({}, payload)
-	  });
-	  promise.then(function (response) {
-	    return dispatch({
-	      type: success,
-	      success: true,
-	      payload: Object.assign({}, payload, { response: response })
-	    });
-	  }, function (error) {
-	    return dispatch({
-	      type: failure,
-	      success: false,
-	      payload: Object.assign({}, payload, { error: error })
-	    });
-	  });
-	};
-
-/***/ },
-
-/***/ 792:
-/*!******************************!*\
-  !*** ./app/api/KanbanApi.js ***!
-  \******************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	__webpack_require__(/*! whatwg-fetch */ 793);
-	
-	__webpack_require__(/*! babel-polyfill */ 262);
-	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	//const API_URL = 'http://kanbanapi.pro-react.com';     //The API_URL has moved into the constants file
-	var API_HEADERS = {
-	  'Content-Type': 'application/json',
-	  Authorization: 'any-string-you-like'
-	};
-	
-	var KanbanAPI = {
-	  fetchCards: function fetchCards() {
-	    return fetch(_constants2.default.API_URL + '/cards', { headers: API_HEADERS }).then(function (response) {
-	      return response.json();
-	    });
-	  },
-	  addCard: function addCard(card) {
-	    return fetch(_constants2.default.API_URL + '/cards', {
-	      method: 'post',
-	      headers: API_HEADERS,
-	      body: JSON.stringify(card)
-	    }).then(function (response) {
-	      return response.json();
-	    });
-	  },
-	  updateCard: function updateCard(card, draftCard) {
-	    return fetch(_constants2.default.API_URL + '/cards/' + card.id, {
-	      method: 'put',
-	      headers: API_HEADERS,
-	      body: JSON.stringify(draftCard)
-	    });
-	  },
-	  persistCardDrag: function persistCardDrag(cardId, status, index) {
-	    return fetch(_constants2.default.API_URL + '/cards/' + cardId, {
-	      method: 'put',
-	      headers: API_HEADERS,
-	      body: JSON.stringify({ status: status, row_order_position: index })
-	    });
-	  },
-	  addTask: function addTask(cardId, task) {
-	    return fetch(_constants2.default.API_URL + '/cards/' + cardId + '/tasks', {
-	      method: 'post',
-	      headers: API_HEADERS,
-	      body: JSON.stringify(task)
-	    }).then(function (response) {
-	      return response.json();
-	    });
-	  },
-	  deleteTask: function deleteTask(cardId, task) {
-	    return fetch(_constants2.default.API_URL + '/cards/' + cardId + '/tasks/' + task.id, {
-	      method: 'delete',
-	      headers: API_HEADERS
-	    });
-	  },
-	  toggleTask: function toggleTask(cardId, task) {
-	    return fetch(_constants2.default.API_URL + '/cards/' + cardId + '/tasks/' + task.id, {
-	      method: 'put',
-	      headers: API_HEADERS,
-	      body: JSON.stringify({ done: !task.done })
-	    });
-	  }
-	};
-	
-	exports.default = KanbanAPI;
-
-/***/ },
-
-/***/ 794:
-/*!*******************************************!*\
-  !*** ./app/actions/CardActionCreators.js ***!
-  \*******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _ReduxDispatcher = __webpack_require__(/*! ../ReduxDispatcher */ 791);
-	
-	var _constants = __webpack_require__(/*! ../constants */ 260);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _KanbanApi = __webpack_require__(/*! ../api/KanbanApi */ 792);
-	
-	var _KanbanApi2 = _interopRequireDefault(_KanbanApi);
-	
-	var _cardUtils = __webpack_require__(/*! ../cardUtils */ 261);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var CardActionCreators = {
-	  fetchCards: function fetchCards() {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.fetchCards(), dispatch, {
-	        request: _constants2.default.FETCH_CARDS,
-	        success: _constants2.default.FETCH_CARDS_SUCCESS,
-	        failure: _constants2.default.FETCH_CARDS_ERROR
-	      });
-	    };
-	  },
-	  toggleCardDetails: function toggleCardDetails(cardId) {
-	    return {
-	      type: _constants2.default.TOGGLE_CARD_DETAILS,
-	      payload: { cardId: cardId }
-	    };
-	  },
-	  addCard: function addCard(card) {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.addCard(card), dispatch, {
-	        request: _constants2.default.CREATE_CARD,
-	        success: _constants2.default.CREATE_CARD_SUCCESS,
-	        failure: _constants2.default.CREATE_CARD_ERROR
-	      }, { card: card });
-	    };
-	  },
-	  updateCard: function updateCard(card, draftCard) {
-	    return function (dispatch) {
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.updateCard(card, draftCard), dispatch, {
-	        request: _constants2.default.UPDATE_CARD,
-	        success: _constants2.default.UPDATE_CARD_SUCCESS,
-	        failure: _constants2.default.UPDATE_CARD_ERROR
-	      }, { card: card, draftCard: draftCard });
-	    };
-	  },
-	  updateCardStatus: function updateCardStatus(cardId, listId) {
-	    return {
-	      type: _constants2.default.UPDATE_CARD_STATUS,
-	      payload: { cardId: cardId, listId: listId },
-	      meta: {
-	        throttle: true
-	      }
-	    };
-	  },
-	  updateCardPosition: function updateCardPosition(cardId, afterId) {
-	    return {
-	      type: _constants2.default.UPDATE_CARD_POSITION,
-	      payload: { cardId: cardId, afterId: afterId },
-	      meta: {
-	        throttle: true
-	      }
-	    };
-	  },
-	
-	
-	  //Warning: This type of usage does not support server-side rendering.
-	  //see this SO answer for more on this http://stackoverflow.com/a/35674575/1434764
-	  persistCardDrag: function persistCardDrag(cardProps) {
-	    return function (dispatch, getState) {
-	      var card = (0, _cardUtils.getCard)(getState().cards, cardProps.id);
-	      var cardIndex = (0, _cardUtils.getCardIndex)(getState().cards, cardProps.id);
-	      (0, _ReduxDispatcher.dispatchAsync)(_KanbanApi2.default.persistCardDrag(card.id, card.status, cardIndex), dispatch, {
-	        request: _constants2.default.PERSIST_CARD_DRAG,
-	        success: _constants2.default.PERSIST_CARD_DRAG_SUCCESS,
-	        failure: _constants2.default.PERSIST_CARD_DRAG_ERROR
-	      }, { cardProps: cardProps });
-	    };
-	  },
-	  createDraft: function createDraft(card) {
-	    return {
-	      type: _constants2.default.CREATE_DRAFT,
-	      payload: { card: card }
-	    };
-	  },
-	  updateDraft: function updateDraft(field, value) {
-	    return {
-	      type: _constants2.default.UPDATE_DRAFT,
-	      payload: { field: field, value: value }
-	    };
-	  }
-	};
-	
-	exports.default = CardActionCreators;
-
-/***/ },
-
-/***/ 795:
-/*!************************************!*\
-  !*** ./app/components/EditCard.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _CardForm = __webpack_require__(/*! ./CardForm */ 796);
-	
-	var _CardForm2 = _interopRequireDefault(_CardForm);
-	
-	var _CardActionCreators = __webpack_require__(/*! ../actions/CardActionCreators */ 794);
-	
-	var _CardActionCreators2 = _interopRequireDefault(_CardActionCreators);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
-	
-	var _cardUtils = __webpack_require__(/*! ../cardUtils */ 261);
-	
-	__webpack_require__(/*! babel-polyfill */ 262);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var EditCard = function (_Component) {
-	  _inherits(EditCard, _Component);
-	
-	  function EditCard() {
-	    _classCallCheck(this, EditCard);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(EditCard).apply(this, arguments));
-	  }
-	
-	  _createClass(EditCard, [{
-	    key: 'handleChange',
-	    value: function handleChange(field, value) {
-	      this.props.updateDraft(field, value);
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(e) {
-	      e.preventDefault();
-	      var cards = this.context.store.getState().cards;
-	      this.props.updateCard((0, _cardUtils.getCard)(cards, this.props.params.card_id), this.props.draft);
-	
-	      this.props.history.pushState(null, '/');
-	    }
-	  }, {
-	    key: 'handleClose',
-	    value: function handleClose(e) {
-	      this.props.history.pushState(null, '/');
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      var cards = this.context.store.getState().cards;
-	      setTimeout(function () {
-	        _this2.props.createDraft((0, _cardUtils.getCard)(cards, _this2.props.params.card_id));
-	      }, 0);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_CardForm2.default, { draftCard: this.props.draft,
-	        buttonLabel: 'Edit Card',
-	        handleChange: this.handleChange.bind(this),
-	        handleSubmit: this.handleSubmit.bind(this),
-	        handleClose: this.handleClose.bind(this) });
-	    }
-	  }]);
-	
-	  return EditCard;
-	}(_react.Component);
-	
-	//The code below enables access the store via the React context.
-	//The code that uses it is in componentDidMount, line 33
-	//see section called "Passing the Store" in http://redux.js.org/docs/basics/UsageWithReact.html for more info
-	
-	
-	EditCard.contextTypes = {
-	  store: _react2.default.PropTypes.object
-	};
-	
-	function mapStoreToProps(storeState) {
-	  return {
-	    draft: storeState.draftCard
-	  };
-	}
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    updateDraft: function updateDraft(field, value) {
-	      return dispatch(_CardActionCreators2.default.updateDraft(field, value));
-	    },
-	    updateCard: function updateCard(card, draftCard) {
-	      return dispatch(_CardActionCreators2.default.updateCard(card, draftCard));
-	    },
-	    createDraft: function createDraft(card) {
-	      return dispatch(_CardActionCreators2.default.createDraft(card));
-	    }
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(EditCard);
-
-/***/ },
-
-/***/ 796:
-/*!************************************!*\
-  !*** ./app/components/CardForm.js ***!
-  \************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var CardForm = function (_Component) {
-	  _inherits(CardForm, _Component);
-	
-	  function CardForm() {
-	    _classCallCheck(this, CardForm);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(CardForm).apply(this, arguments));
-	  }
-	
-	  _createClass(CardForm, [{
-	    key: 'handleChange',
-	    value: function handleChange(field, e) {
-	      this.props.handleChange(field, e.target.value);
-	    }
-	  }, {
-	    key: 'handleClose',
-	    value: function handleClose(e) {
-	      e.preventDefault();
-	      this.props.handleClose();
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(
-	        'div',
-	        null,
-	        _react2.default.createElement(
-	          'div',
-	          { className: 'card big' },
-	          _react2.default.createElement(
-	            'form',
-	            { onSubmit: this.props.handleSubmit.bind(this) },
-	            _react2.default.createElement('input', { type: 'text',
-	              value: this.props.draftCard.title,
-	              onChange: this.handleChange.bind(this, 'title'),
-	              placeholder: 'Title',
-	              required: true,
-	              autoFocus: true }),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement('textarea', { value: this.props.draftCard.description,
-	              onChange: this.handleChange.bind(this, 'description'),
-	              placeholder: 'Description',
-	              required: true }),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'status' },
-	              'Status'
-	            ),
-	            _react2.default.createElement(
-	              'select',
-	              { id: 'status',
-	                value: this.props.draftCard.status,
-	                onChange: this.handleChange.bind(this, 'status') },
-	              _react2.default.createElement(
-	                'option',
-	                { value: 'todo' },
-	                'To Do'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 'in-progress' },
-	                'In Progress'
-	              ),
-	              _react2.default.createElement(
-	                'option',
-	                { value: 'done' },
-	                'Done'
-	              )
-	            ),
-	            _react2.default.createElement('br', null),
-	            _react2.default.createElement(
-	              'label',
-	              { htmlFor: 'color' },
-	              'Color'
-	            ),
-	            _react2.default.createElement('input', { id: 'color',
-	              value: this.props.draftCard.color,
-	              onChange: this.handleChange.bind(this, 'color'),
-	              type: 'color',
-	              defaultValue: '#ff0000' }),
-	            _react2.default.createElement(
-	              'div',
-	              { className: 'actions' },
-	              _react2.default.createElement(
-	                'button',
-	                { type: 'submit' },
-	                this.props.buttonLabel
-	              )
-	            )
-	          )
-	        ),
-	        _react2.default.createElement('div', { className: 'overlay', onClick: this.handleClose.bind(this) })
-	      );
-	    }
-	  }]);
-	
-	  return CardForm;
-	}(_react.Component);
-	
-	CardForm.propTypes = {
-	  buttonLabel: _react.PropTypes.string.isRequired,
-	  draftCard: _react.PropTypes.shape({
-	    title: _react.PropTypes.string,
-	    description: _react.PropTypes.string,
-	    status: _react.PropTypes.string,
-	    color: _react.PropTypes.string
-	  }).isRequired,
-	  handleChange: _react.PropTypes.func.isRequired,
-	  handleSubmit: _react.PropTypes.func.isRequired,
-	  handleClose: _react.PropTypes.func.isRequired
-	};
-	
-	exports.default = CardForm;
-
-/***/ },
-
-/***/ 797:
-/*!***********************************!*\
-  !*** ./app/components/NewCard.js ***!
-  \***********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _CardForm = __webpack_require__(/*! ./CardForm */ 796);
-	
-	var _CardForm2 = _interopRequireDefault(_CardForm);
-	
-	var _CardActionCreators = __webpack_require__(/*! ../actions/CardActionCreators */ 794);
-	
-	var _CardActionCreators2 = _interopRequireDefault(_CardActionCreators);
-	
-	var _reactRedux = __webpack_require__(/*! react-redux */ 231);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var NewCard = function (_Component) {
-	  _inherits(NewCard, _Component);
-	
-	  function NewCard() {
-	    _classCallCheck(this, NewCard);
-	
-	    return _possibleConstructorReturn(this, Object.getPrototypeOf(NewCard).apply(this, arguments));
-	  }
-	
-	  _createClass(NewCard, [{
-	    key: 'handleChange',
-	    value: function handleChange(field, value) {
-	      this.props.updateDraft(field, value);
-	    }
-	  }, {
-	    key: 'handleSubmit',
-	    value: function handleSubmit(e) {
-	      e.preventDefault();
-	      this.props.addCard(this.props.draft);
-	      this.props.history.pushState(null, '/');
-	    }
-	  }, {
-	    key: 'handleClose',
-	    value: function handleClose(e) {
-	      this.props.history.pushState(null, '/');
-	    }
-	  }, {
-	    key: 'componentDidMount',
-	    value: function componentDidMount() {
-	      var _this2 = this;
-	
-	      setTimeout(function () {
-	        return _this2.props.createDraft();
-	      }, 0);
-	    }
-	  }, {
-	    key: 'render',
-	    value: function render() {
-	      return _react2.default.createElement(_CardForm2.default, { draftCard: this.props.draft,
-	        buttonLabel: 'Create Card',
-	        handleChange: this.handleChange.bind(this),
-	        handleSubmit: this.handleSubmit.bind(this),
-	        handleClose: this.handleClose.bind(this) });
-	    }
-	  }]);
-	
-	  return NewCard;
-	}(_react.Component);
-	
-	function mapStoreToProps(storeState) {
-	  return {
-	    draft: storeState.draftCard
-	  };
-	}
-	
-	function mapDispatchToProps(dispatch) {
-	  return {
-	    updateDraft: function updateDraft(field, value) {
-	      return dispatch(_CardActionCreators2.default.updateDraft(field, value));
-	    },
-	    addCard: function addCard(card) {
-	      return dispatch(_CardActionCreators2.default.addCard(card));
-	    },
-	    createDraft: function createDraft(card) {
-	      return dispatch(_CardActionCreators2.default.createDraft(card));
-	    }
-	  };
-	}
-	
-	exports.default = (0, _reactRedux.connect)(mapStoreToProps, mapDispatchToProps)(NewCard);
+	    _createClass(GenreSuggestions, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { style: Object.assign({}, this.props.style) },
+	                _react2.default.createElement(
+	                    'h2',
+	                    { style: { color: _colors.white } },
+	                    this.props.title
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
+	                    this.props.items.map(function (item, index, source) {
+	                        return _react2.default.createElement(_Movie2.default, { key: index, title: item.title, image: item.image, subtitle: item.year, first: index == 0, last: index == source.length - 1, small: true });
+	                    }, this)
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return GenreSuggestions;
+	}(_react2.default.Component);
+	
+	exports.default = GenreSuggestions;
 
 /***/ }
 

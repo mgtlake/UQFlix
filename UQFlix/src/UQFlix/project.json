@@ -1,4 +1,4 @@
-﻿{
+{
   "dependencies": {
     "Microsoft.NETCore.App": {
       "version": "1.0.0",
@@ -18,7 +18,10 @@
     "Microsoft.Extensions.Logging": "1.0.0",
     "Microsoft.Extensions.Logging.Console": "1.0.0",
     "Microsoft.Extensions.Logging.Debug": "1.0.0",
-    "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0"
+   "Microsoft.VisualStudio.Web.BrowserLink.Loader": "14.0.0",
+   "Microsoft.EntityFrameworkCore.SqlServer": "1.0.0",
+   "BundlerMinifier.Core": "2.2.281",
+   "AngleSharp": "0.9.7"
   },
 
   "tools": {

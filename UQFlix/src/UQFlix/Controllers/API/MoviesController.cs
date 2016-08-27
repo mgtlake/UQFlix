@@ -9,6 +9,8 @@ using System.Globalization;
 using System.Threading.Tasks;
 using System.Diagnostics;
 using System.Text.RegularExpressions;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace UQFlix.Controllers {
 	[Route("api/[controller]")]
@@ -33,25 +35,12 @@ namespace UQFlix.Controllers {
 		[HttpGet("scrape")]
 		// GET: api/movies/5
 		public IActionResult Scrape() {
-
-			var j = 0;
-			for (int i = 0; i < 10; i++) {
-				//try {
-					//getMovieLink("http://search.library.uq.edu.au/primo_library/libweb/action/display.do?tabs=viewOnlineTab&gathStatTab=true&ct=display&fn=search&doc=61UQ_ALMA21108912770003131&indx=2&recIds=61UQ_ALMA21108912770003131&recIdxs=1&elementId=1&renderMode=poppedOut&displayMode=full&frbrVersion=&vl(982830058UI0)=sub&vl(982830125UI2)=any&vl(75285841UI5)=00&dscnt=0&vl(1UIStartWith0)=contains&vl(75285843UI5)=00&vl(1UIStartWith2)=contains&mode=Advanced&vid=61UQ&vl(982830065UI1)=any&rfnGrp=show_only&tab=61uq_all&vl(freeText3)=&vl(75285840UI5)=00&vl(982043576UI4)=all_items&vl(freeText1)=&vl(75285833UI2)=AND&vl(75285844UI5)=00&dstmp=1472257490949&frbg=&vl(1UIStartWith3)=contains&vl(75285845UI5)=Year&vl(1UIStartWith1)=contains&vl(982829999UI3)=any&tb=t&vl(1057736829UI6)=audio_video&fctV=online_resources&srt=rank&fctN=facet_tlevel&Submit=Search&vl(75285833UI3)=AND&vl(freeText2)=&vl(75285833UI1)=AND&dum=true&vl(75285835UI0)=AND&vl(freeText0)=feature%20film&vl(75285842UI5)=Year");
-				//} catch {
-				//	j += 1;
-				//	Debug.WriteLine("problem");
-				//}
-			}
-
-			//return Ok(j);
-
 			var url = "http://search.library.uq.edu.au/primo_library/libweb/action/search.do?ct=facet&fctN=facet_tlevel&fctV=online_resources&rfnGrp=show_only&vl(982830058UI0)=sub&vl(982830125UI2)=any&&indx=1&fn=search&vl(75285841UI5)=00&dscnt=0&vl(1UIStartWith0)=contains&vl(75285843UI5)=00&vl(1UIStartWith2)=contains&mode=Advanced&vid=61UQ&vl(982830065UI1)=any&tab=61uq_all&vl(freeText3)=&vl(75285840UI5)=00&vl(982043576UI4)=all_items&vl(freeText1)=&vl(75285844UI5)=00&vl(75285833UI2)=AND&dstmp=1472205979926&frbg=&vl(75285845UI5)=Year&vl(1UIStartWith3)=contains&tb=t&vl(982829999UI3)=any&vl(1UIStartWith1)=contains&vl(1057736829UI6)=audio_video&ct=search&srt=rank&Submit=Search&vl(75285833UI3)=AND&vl(freeText2)=&vl(75285833UI1)=AND&dum=true&vl(75285835UI0)=AND&vl(freeText0)=feature%20film&vl(75285842UI5)=Year";
 			var count = getCount(url);
 
 			Stopwatch sw = Stopwatch.StartNew();
-			Parallel.For(-20, (count - 20) / 100, n => {
-				//System.Diagnostics.Debug.WriteLine(n);
+			Parallel.For(-1, ((count - 1) / 20), i => {
+				var n = i * 20;
 				url = $"http://search.library.uq.edu.au/primo_library/libweb/action/search.do?ct=Next+Page&pag=nxt&indx={n}&pageNumberComingFrom=8&vl(982830058UI0)=sub&vl(982830125UI2)=any&fn=search&indx=9&dscnt=0&vl(75285841UI5)=00&vl(1UIStartWith0)=contains&vl(75285843UI5)=00&vl(1UIStartWith2)=contains&vid=61UQ&mode=Advanced&vl(982830065UI1)=any&rfnGrp=show_only&tab=61uq_all&vl(freeText3)=&vl(75285840UI5)=00&vl(freeText1)=&vl(982043576UI4)=all_items&vl(75285833UI2)=AND&vl(75285844UI5)=00&dstmp=1472253531990&frbg=&vl(75285845UI5)=Year&vl(1UIStartWith3)=contains&tb=t&vl(982829999UI3)=any&vl(1UIStartWith1)=contains&vl(1057736829UI6)=audio_video&fctV=online_resources&ct=Next%20Page&srt=rank&fctN=facet_tlevel&Submit=Search&vl(75285833UI3)=AND&vl(freeText2)=&vl(75285833UI1)=AND&vl(freeText0)=feature%20film&vl(75285835UI0)=AND&dum=true&vl(75285842UI5)=Year";
 				getMovies(url);
 			});
@@ -91,18 +80,30 @@ namespace UQFlix.Controllers {
 				foreach (var title in titles) {
 					var link = "http://search.library.uq.edu.au/primo_library/libweb/action/" + title.FirstElementChild.GetAttribute("href");
 					var video = getMovieLink(link);
-					var movie = new Movie() { name = title.TextContent, link = video };
+					if (video == null) {
+						continue;
+					} 
+					var movie = new Movie() { name = cleanTitle(title.TextContent.Trim()), link = video };
+					getMetadata(movie);
+					if (movie.description == null) {
+						continue;
+					}
 
-					db.movies.Add(movie);
-					db.SaveChanges();
+					try {
+						if (!db.movies.Contains(movie)) {
+							db.movies.Add(movie);
+						}
+					
+						db.SaveChanges();
+					} catch { }
 				}
-
+				
 			}
 
 			return new List<Tuple<string, string>> { new Tuple<string, string>("name", "filename") };
 		}
 
-		private Uri getMovieLink(string url) {
+		private string getMovieLink(string url) {
 			url = Regex.Replace(url, @";jsessionid=*?", "?");
 			var curl = new Process {
 				StartInfo = new ProcessStartInfo {
@@ -118,36 +119,92 @@ namespace UQFlix.Controllers {
 			string source = "";
 			while (!curl.StandardOutput.EndOfStream) {
 				source += curl.StandardOutput.ReadLine();
-				// do something with line
 			}
 
 			// Create a new parser front-end (can be re-used)
 			var parser = new HtmlParser();
 			//Just get the DOM representation
 			var document = parser.Parse(source);
-			
-			var link = document.QuerySelector(".EXLTabContent").FirstElementChild.GetAttribute("src");
+
+			string link = null;
+			try {
+				link = document.QuerySelector(".EXLTabContent").FirstElementChild.GetAttribute("src");
+			} catch { }
 			if (link == null) {
-				link = document.QuerySelector(".EXLDetailsLinksTitle").FirstElementChild.GetAttribute("href");
+				try {
+					link = document.QuerySelector(".EXLDetailsLinksTitle").FirstElementChild.GetAttribute("href");
+				} catch { }
 			}
+			if (link == null) {
+				try {
+					link = document.QuerySelector(".EXLFullDetailsOutboundLink").GetAttribute("href");
+				} catch { }
+			}
+			if (link == null) {
+				return null;
+			}
+			
 
 			var regex = new Regex(@"http://www.library.uq.edu.au/mget.php\?id=");
 			if (regex.Match(link).Success) {
 				var partial = link.Replace(@"http://www.library.uq.edu.au/mget.php?id=", "");
 				var video = $"http://streaming.library.uq.edu.au/media/mp4/{partial}/{partial}_1.mp4";
 				Debug.WriteLine(partial);
-				return new Uri(video);
+				return video;
 			} else {
 				Debug.WriteLine(link);
-				return new Uri(link);
+				return link;
 			}
 			
 		}
 
-		private movieMetadata getMetadata(string name) {
-			var result = new movieMetadata();
+		private void getMetadata(Movie movie) {
+			var name = movie.name;
+			var url = $"http://www.omdbapi.com/?t={name.Replace(' ', '+')}&y=&plot=short&r=json";
+			var client = new System.Net.Http.HttpClient();
+			var source = client.GetStringAsync(url).Result;
 
-			return result;
+			var json = JsonConvert.DeserializeObject<omdb>(source);
+			if (json.Response == "False") {
+				return;
+			}
+			movie.year = int.Parse(Regex.Replace(json.Year, @"[^\d]", ""));
+			movie.director = json.Director;
+			movie.description = json.Plot;
+			movie.genre = json.Genre.Split(',').First();
+			movie.poster = json.Poster;
+		}
+		
+		private class omdb {
+			public string Title { get; set; }
+			public string Year { get; set; }
+			public string Rated { get; set; }
+			public string Released { get; set; }
+			public string Runtime { get; set; }
+			public string Genre { get; set; }
+			public string Director { get; set; }
+			public string Writer { get; set; }
+			public string Actors { get; set; }
+			public string Plot { get; set; }
+			public string Language { get; set; }
+			public string Country { get; set; }
+			public string Awards { get; set; }
+			public string Poster { get; set; }
+			public string Metascore { get; set; }
+			public string imdbRating { get; set; }
+			public string imdbVotes { get; set; }
+			public string imdbID { get; set; }
+			public string Type { get; set; }
+			public string Response { get; set; }
+		}
+
+		private string cleanTitle(string title) {
+			if (title.Split('.').First().Contains(title.Split('.').Last())) {
+				var temp = title.Split('.').First();
+				return temp;
+			} else {
+				return title;
+			}
 		}
 	}
 }

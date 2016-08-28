@@ -48,13 +48,14 @@ namespace UQFlix.Controllers {
 		}
 
 		[HttpGet("suggestnext/{movie}")]
-		// GET: api/movies/suggestednext/Inception
+		// GET: api/movies/suggestnext/Inception
 		public IActionResult GetSuggestNext(string movie) {
 			if (DataDict.IsEmpty) {
 				return Json(new object());
 			} else {
-				var rng = new Random();
-				return Ok(DataDict.ToList().OrderBy(x => rng.Next()).First());
+				using (var db = new MoviesContext()) {
+					return Ok(DataDict.ToList().OrderBy(x => closeness(userModel, getModel(db, x.Value))).First());
+				}
 			}
 		}
 
@@ -87,8 +88,9 @@ namespace UQFlix.Controllers {
 			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower().Contains(genre.ToLower())).Any()) {
 				return Json(new object());
 			} else {
-				var rng = new Random();
-				return Ok(DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower().Contains(genre.ToLower())).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+				using (var db = new MoviesContext()) {
+					return Ok(DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower().Contains(genre.ToLower())).OrderByDescending(x => predict(userModel, getModel(db, x.Value))).Take(int.Parse(n)).ToList());
+				}
 			}
 		}
 
@@ -502,6 +504,30 @@ namespace UQFlix.Controllers {
 			result += user.values16 * movie.values16;
 			result += user.values17 * movie.values17;
 			result += user.values18 * movie.values18;
+
+			return (float) result;
+		}
+
+		private float closeness(User user, Model movie) {
+			var result = 0.0;
+			result += Math.Abs(user.values1 - movie.values1);
+			result += Math.Abs(user.values2 - movie.values2);
+			result += Math.Abs(user.values3 - movie.values3);
+			result += Math.Abs(user.values4 - movie.values4);
+			result += Math.Abs(user.values5 - movie.values5);
+			result += Math.Abs(user.values6 - movie.values6);
+			result += Math.Abs(user.values7 - movie.values7);
+			result += Math.Abs(user.values8 - movie.values8);
+			result += Math.Abs(user.values9 - movie.values9);
+			result += Math.Abs(user.values10 - movie.values10);
+			result += Math.Abs(user.values11 - movie.values11);
+			result += Math.Abs(user.values12 - movie.values12);
+			result += Math.Abs(user.values13 - movie.values13);
+			result += Math.Abs(user.values14 - movie.values14);
+			result += Math.Abs(user.values15 - movie.values15);
+			result += Math.Abs(user.values16 - movie.values16);
+			result += Math.Abs(user.values17 - movie.values17);
+			result += Math.Abs(user.values18 - movie.values18);
 
 			return (float) result;
 		}

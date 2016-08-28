@@ -13,7 +13,7 @@ namespace UQFlix.Models {
 		public DbSet<Model> models { get; set; }
 
 		protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) {
-			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Movies;Trusted_Connection=True;");
+			optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Movies;Trusted_Connection=True;MultipleActiveResultSets=True;");
 		}
 	}
 

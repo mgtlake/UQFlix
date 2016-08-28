@@ -20,6 +20,8 @@ namespace UQFlix.Controllers {
 		private readonly ConcurrentDictionary<string, Movie> DataDict =
 			 new ConcurrentDictionary<string, Movie>((new MoviesContext()).movies.ToDictionary(e => e.name));
 
+		private User userModel = calculateUserModel();
+
 		[HttpGet]
 		// GET: api/movies
 		public IEnumerable<Movie> Get() {
@@ -39,8 +41,9 @@ namespace UQFlix.Controllers {
 			if (DataDict.IsEmpty) {
 				return Json(new object());
 			} else {
-				var rng = new Random();
-				return Ok(DataDict.ToList().OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+				using(var db = new MoviesContext()) {
+					return Ok(DataDict.ToList().OrderByDescending(x => predict(userModel, getModel(db, x.Value))).Take(int.Parse(n)).ToList());
+				}
 			}
 		}
 
@@ -374,6 +377,163 @@ namespace UQFlix.Controllers {
 			public string values16 { get; set; }
 			public string values17 { get; set; }
 			public string values18 { get; set; }
+		}
+
+		private static User calculateUserModel() {
+			var list = new List<Model>();
+			using (var db = new MoviesContext()) {
+				var models = db.models;
+				foreach (var rating in db.ratings) {
+					var model = models.ToList().Where(m => m.movie == rating.movie).First();
+					list.Add(weight(model, (float) (rating.rating / 10.0)));
+				}
+			}
+			var rng = new Random();
+			var result = new User() {
+				values1 = (float) rng.NextDouble(),
+				values2 = (float) rng.NextDouble(),
+				values3 = (float) rng.NextDouble(),
+				values4 = (float) rng.NextDouble(),
+				values5 = (float) rng.NextDouble(),
+				values6 = (float) rng.NextDouble(),
+				values7 = (float) rng.NextDouble(),
+				values8 = (float) rng.NextDouble(),
+				values9 = (float) rng.NextDouble(),
+				values10 = (float) rng.NextDouble(),
+				values11 = (float) rng.NextDouble(),
+				values12 = (float) rng.NextDouble(),
+				values13 = (float) rng.NextDouble(),
+				values14 = (float) rng.NextDouble(),
+				values15 = (float) rng.NextDouble(),
+				values16 = (float) rng.NextDouble(),
+				values17 = (float) rng.NextDouble(),
+				values18 = (float) rng.NextDouble()
+			};
+
+			if (list.Any()) {
+				result = new User() {
+					values1 = list.Select(m => m.values1).Average(),
+					values2 = list.Select(m => m.values2).Average(),
+					values3 = list.Select(m => m.values3).Average(),
+					values4 = list.Select(m => m.values4).Average(),
+					values5 = list.Select(m => m.values5).Average(),
+					values6 = list.Select(m => m.values6).Average(),
+					values7 = list.Select(m => m.values7).Average(),
+					values8 = list.Select(m => m.values8).Average(),
+					values9 = list.Select(m => m.values9).Average(),
+					values10 = list.Select(m => m.values10).Average(),
+					values11 = list.Select(m => m.values11).Average(),
+					values12 = list.Select(m => m.values12).Average(),
+					values13 = list.Select(m => m.values13).Average(),
+					values14 = list.Select(m => m.values14).Average(),
+					values15 = list.Select(m => m.values15).Average(),
+					values16 = list.Select(m => m.values16).Average(),
+					values17 = list.Select(m => m.values17).Average(),
+					values18 = list.Select(m => m.values18).Average()
+				};
+			}
+			
+
+			return result;
+		}
+
+		private static Model weight(Model model, float weight) {
+			return new Model() {
+				movie = model.movie,
+				values1 = model.values1 * weight,
+				values2 = model.values2 * weight,
+				values3 = model.values3 * weight,
+				values4 = model.values4 * weight,
+				values5 = model.values5 * weight,
+				values6 = model.values6 * weight,
+				values7 = model.values7 * weight,
+				values8 = model.values8 * weight,
+				values9 = model.values9 * weight,
+				values10 = model.values10 * weight,
+				values11 = model.values11 * weight,
+				values12 = model.values12 * weight,
+				values13 = model.values13 * weight,
+				values14 = model.values14 * weight,
+				values15 = model.values15 * weight,
+				values16 = model.values16 * weight,
+				values17 = model.values17 * weight,
+				values18 = model.values18 * weight
+			};
+		}
+
+		private new class User {
+			public float values1 { get; set; }
+			public float values2 { get; set; }
+			public float values3 { get; set; }
+			public float values4 { get; set; }
+			public float values5 { get; set; }
+			public float values6 { get; set; }
+			public float values7 { get; set; }
+			public float values8 { get; set; }
+			public float values9 { get; set; }
+			public float values10 { get; set; }
+			public float values11 { get; set; }
+			public float values12 { get; set; }
+			public float values13 { get; set; }
+			public float values14 { get; set; }
+			public float values15 { get; set; }
+			public float values16 { get; set; }
+			public float values17 { get; set; }
+			public float values18 { get; set; }
+		}
+
+		private float predict(User user, Model movie) {
+			var result = 0.0;
+			result += user.values1 * movie.values1;
+			result += user.values2 * movie.values2;
+			result += user.values3 * movie.values3;
+			result += user.values4 * movie.values4;
+			result += user.values5 * movie.values5;
+			result += user.values6 * movie.values6;
+			result += user.values7 * movie.values7;
+			result += user.values8 * movie.values8;
+			result += user.values9 * movie.values9;
+			result += user.values10 * movie.values10;
+			result += user.values11 * movie.values11;
+			result += user.values12 * movie.values12;
+			result += user.values13 * movie.values13;
+			result += user.values14 * movie.values14;
+			result += user.values15 * movie.values15;
+			result += user.values16 * movie.values16;
+			result += user.values17 * movie.values17;
+			result += user.values18 * movie.values18;
+
+			return (float) result;
+		}
+
+		private Model getModel(MoviesContext db, Movie movie) {
+			var models = db.models.Where(m => m.movie == movie.name);
+			if (models.Any()) {
+				return models.First();
+			} else {
+				var rng = new Random();
+				return new Model() {
+					movie = movie.name,
+					values1 = (float) (rng.NextDouble() * 0.75),
+					values2 = (float) (rng.NextDouble() * 0.75),
+					values3 = (float) (rng.NextDouble() * 0.75),
+					values4 = (float) (rng.NextDouble() * 0.75),
+					values5 = (float) (rng.NextDouble() * 0.75),
+					values6 = (float) (rng.NextDouble() * 0.75),
+					values7 = (float) (rng.NextDouble() * 0.75),
+					values8 = (float) (rng.NextDouble() * 0.75),
+					values9 = (float) (rng.NextDouble() * 0.75),
+					values10 = (float) (rng.NextDouble() * 0.75),
+					values11 = (float) (rng.NextDouble() * 0.75),
+					values12 = (float) (rng.NextDouble() * 0.75),
+					values13 = (float) (rng.NextDouble() * 0.75),
+					values14 = (float) (rng.NextDouble() * 0.75),
+					values15 = (float) (rng.NextDouble() * 0.75),
+					values16 = (float) (rng.NextDouble() * 0.75),
+					values17 = (float) (rng.NextDouble() * 0.75),
+					values18 = (float) (rng.NextDouble() * 0.75)
+				};
+			}
 		}
 	}
 }

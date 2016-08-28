@@ -23,7 +23,7 @@ export default class Home extends React.Component {
         if (search.length > 0) {
             var that = this;
             var stamp = new Date().getTime();
-            fetch(`api/movies/search/${search}`).then(function(response) {
+            fetch(`/api/movies/search/${search}`).then(function(response) {
                 if (stamp >= that.state.stamp) {
                     response.json().then(function(json) {
                         that.setState({results: json.map(function(item, index, source) { return item.value }), search: search, stamp: stamp});

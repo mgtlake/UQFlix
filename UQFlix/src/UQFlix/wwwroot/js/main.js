@@ -30,11 +30,11 @@ webpackJsonp([0],{
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Player = __webpack_require__(/*! ./components/Player */ 346);
+	var _Player = __webpack_require__(/*! ./components/Player */ 348);
 	
 	var _Player2 = _interopRequireDefault(_Player);
 	
-	var _Main = __webpack_require__(/*! ./components/Main */ 348);
+	var _Main = __webpack_require__(/*! ./components/Main */ 349);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
@@ -197,7 +197,7 @@ webpackJsonp([0],{
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 350);
+	var _Movie = __webpack_require__(/*! ./Movie */ 346);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
@@ -238,7 +238,7 @@ webpackJsonp([0],{
 	            if (search.length > 0) {
 	                var that = this;
 	                var stamp = new Date().getTime();
-	                fetch('api/movies/search/' + search).then(function (response) {
+	                fetch('/api/movies/search/' + search).then(function (response) {
 	                    if (stamp >= that.state.stamp) {
 	                        response.json().then(function (json) {
 	                            that.setState({ results: json.map(function (item, index, source) {
@@ -551,337 +551,6 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 346:
-/*!**********************************!*\
-  !*** ./app/components/Player.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 347);
-	
-	var _playArrow2 = _interopRequireDefault(_playArrow);
-	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Player = function (_React$Component) {
-	    _inherits(Player, _React$Component);
-	
-	    function Player(props) {
-	        _classCallCheck(this, Player);
-	
-	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
-	
-	        _this.state = {
-	            movie: null
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Player, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.update();
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update() {
-	            var that = this;
-	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
-	                response.json().then(function (json) {
-	                    that.setState({ movie: json });
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            console.log("render");
-	            var player = _react2.default.createElement('div', null);
-	            if (this.state.movie != null) {
-	                player = _react2.default.createElement(
-	                    'div',
-	                    { style: { color: _colors.white } },
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { background: _colors.grey900, padding: '20px' } },
-	                        _react2.default.createElement('video', { autoplay: 'true', controls: true, style: { margin: '0 auto', display: 'block', width: (window.screen.width < 600 ? '100' : '60') + '%' }, src: this.state.movie.link })
-	                    ),
-	                    _react2.default.createElement(
-	                        'div',
-	                        { style: { color: _colors.grey200, padding: '20px' } },
-	                        _react2.default.createElement(
-	                            'h1',
-	                            { style: { fontSize: '2rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
-	                            this.state.movie.name,
-	                            ' (',
-	                            this.state.movie.year,
-	                            ')'
-	                        ),
-	                        _react2.default.createElement(
-	                            'h1',
-	                            { style: { fontSize: '1.25rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
-	                            'Directed by ',
-	                            this.state.movie.director
-	                        ),
-	                        _react2.default.createElement(
-	                            'small',
-	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
-	                            this.state.movie.genre.split('|').join(', ')
-	                        ),
-	                        _react2.default.createElement(
-	                            'p',
-	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
-	                            this.state.movie.description
-	                        )
-	                    )
-	                );
-	            }
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                player
-	            );
-	        }
-	    }]);
-	
-	    return Player;
-	}(_react2.default.Component);
-	
-	exports.default = Player;
-
-/***/ },
-
-/***/ 347:
-/*!**************************************************!*\
-  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(/*! recompose/pure */ 292);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var AvPlayArrow = function AvPlayArrow(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
-	  );
-	};
-	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
-	AvPlayArrow.displayName = 'AvPlayArrow';
-	AvPlayArrow.muiName = 'SvgIcon';
-	
-	exports.default = AvPlayArrow;
-
-/***/ },
-
-/***/ 348:
-/*!********************************!*\
-  !*** ./app/components/Main.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 349);
-	
-	var _Suggestions2 = _interopRequireDefault(_Suggestions);
-	
-	var _Genres = __webpack_require__(/*! ./Genres */ 351);
-	
-	var _Genres2 = _interopRequireDefault(_Genres);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Main = function (_React$Component) {
-	    _inherits(Main, _React$Component);
-	
-	    function Main(props) {
-	        _classCallCheck(this, Main);
-	
-	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
-	
-	        _this.state = {
-	            value: 3
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Main, [{
-	        key: 'handleChange',
-	        value: function handleChange(event, index, value) {
-	            this.setState({ value: value });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Suggestions2.default, null),
-	                _react2.default.createElement(_Genres2.default, null)
-	            );
-	        }
-	    }]);
-	
-	    return Main;
-	}(_react2.default.Component);
-	
-	exports.default = Main;
-
-/***/ },
-
-/***/ 349:
-/*!***************************************!*\
-  !*** ./app/components/Suggestions.js ***!
-  \***************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Movie = __webpack_require__(/*! ./Movie */ 350);
-	
-	var _Movie2 = _interopRequireDefault(_Movie);
-	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Suggestions = function (_React$Component) {
-	    _inherits(Suggestions, _React$Component);
-	
-	    function Suggestions(props) {
-	        _classCallCheck(this, Suggestions);
-	
-	        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
-	
-	        _this.state = {
-	            suggestionCount: 20,
-	            suggestions: []
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Suggestions, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.update();
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update() {
-	            var that = this;
-	            fetch('api/movies/suggested/' + this.state.suggestionCount).then(function (response) {
-	                response.json().then(function (json) {
-	                    that.setState({ suggestions: json.map(function (item, index, source) {
-	                            return item.value;
-	                        }) });
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'handleChange',
-	        value: function handleChange(event, index, value) {
-	            this.setState({ value: value });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                { style: { padding: '20px' } },
-	                _react2.default.createElement(
-	                    'h2',
-	                    { style: { color: _colors.grey200, fontSize: '2rem', marginTop: '0px' } },
-	                    'Suggestions'
-	                ),
-	                _react2.default.createElement(
-	                    'div',
-	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
-	                    this.state.suggestions.map(function (suggestion, index, source) {
-	                        return _react2.default.createElement(_Movie2.default, { key: suggestion.name, title: suggestion.name, image: suggestion.poster, subtitle: suggestion.year, first: index == 0, url: suggestion.link, last: index == source.length - 1 });
-	                    }, this)
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return Suggestions;
-	}(_react2.default.Component);
-	
-	exports.default = Suggestions;
-
-/***/ },
-
-/***/ 350:
 /*!*********************************!*\
   !*** ./app/components/Movie.js ***!
   \*********************************/
@@ -1030,6 +699,400 @@ webpackJsonp([0],{
 
 /***/ },
 
+/***/ 347:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 292);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AvPlayArrow = function AvPlayArrow(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
+	  );
+	};
+	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
+	AvPlayArrow.displayName = 'AvPlayArrow';
+	AvPlayArrow.muiName = 'SvgIcon';
+	
+	exports.default = AvPlayArrow;
+
+/***/ },
+
+/***/ 348:
+/*!**********************************!*\
+  !*** ./app/components/Player.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 347);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _starBorder = __webpack_require__(/*! material-ui/svg-icons/toggle/star-border */ 1016);
+	
+	var _starBorder2 = _interopRequireDefault(_starBorder);
+	
+	var _star = __webpack_require__(/*! material-ui/svg-icons/toggle/star */ 1017);
+	
+	var _star2 = _interopRequireDefault(_star);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
+	
+	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 317);
+	
+	var _IconButton2 = _interopRequireDefault(_IconButton);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = function (_React$Component) {
+	    _inherits(Player, _React$Component);
+	
+	    function Player(props) {
+	        _classCallCheck(this, Player);
+	
+	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+	
+	        _this.state = {
+	            movie: null,
+	            rating: 0
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Player, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ movie: json });
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'setRating',
+	        value: function setRating(rating) {
+	            var that = this;
+	            this.setState({ rating: rating });
+	            fetch('/api/movies/rate/' + this.props.params.movie + '/' + rating * 2).then(function (response) {
+	                console.log("Rated");
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            var that = this;
+	            var player = _react2.default.createElement('div', null);
+	            var starStyle = { color: _colors.yellow300, width: '24px', height: '24px', padding: '0px', margin: '12px' };
+	            var ratings = _react2.default.createElement(
+	                'span',
+	                { style: { marginLeft: '40px' } },
+	                _react2.default.createElement(
+	                    _IconButton2.default,
+	                    { onClick: function onClick() {
+	                            that.setRating.call(that, 1);
+	                        }, iconStyle: { color: _colors.yellow300 }, style: starStyle },
+	                    this.state.rating >= 1 ? _react2.default.createElement(_star2.default, null) : _react2.default.createElement(_starBorder2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    _IconButton2.default,
+	                    { onClick: function onClick() {
+	                            that.setRating.call(that, 2);
+	                        }, iconStyle: { color: _colors.yellow300 }, style: starStyle },
+	                    this.state.rating >= 2 ? _react2.default.createElement(_star2.default, null) : _react2.default.createElement(_starBorder2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    _IconButton2.default,
+	                    { onClick: function onClick() {
+	                            that.setRating.call(that, 3);
+	                        }, iconStyle: { color: _colors.yellow300 }, style: starStyle },
+	                    this.state.rating >= 3 ? _react2.default.createElement(_star2.default, null) : _react2.default.createElement(_starBorder2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    _IconButton2.default,
+	                    { onClick: function onClick() {
+	                            that.setRating.call(that, 4);
+	                        }, iconStyle: { color: _colors.yellow300 }, style: starStyle },
+	                    this.state.rating >= 4 ? _react2.default.createElement(_star2.default, null) : _react2.default.createElement(_starBorder2.default, null)
+	                ),
+	                _react2.default.createElement(
+	                    _IconButton2.default,
+	                    { onClick: function onClick() {
+	                            that.setRating.call(that, 5);
+	                        }, iconStyle: { color: _colors.yellow300 }, style: starStyle },
+	                    this.state.rating >= 5 ? _react2.default.createElement(_star2.default, null) : _react2.default.createElement(_starBorder2.default, null)
+	                )
+	            );
+	            if (this.state.movie != null) {
+	                player = _react2.default.createElement(
+	                    'div',
+	                    { style: { color: _colors.white } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { background: _colors.grey900, padding: '20px' } },
+	                        _react2.default.createElement('video', { autoplay: 'true', controls: true, style: { margin: '0 auto', display: 'block', width: (window.screen.width < 600 ? '100' : '60') + '%' }, src: this.state.movie.link })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { color: _colors.grey200, padding: '20px' } },
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '2rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            this.state.movie.name,
+	                            ' (',
+	                            this.state.movie.year,
+	                            ')',
+	                            ratings
+	                        ),
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '1.25rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            'Directed by ',
+	                            this.state.movie.director
+	                        ),
+	                        _react2.default.createElement(
+	                            'small',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.genre.split('|').join(', ')
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.description
+	                        )
+	                    )
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                player
+	            );
+	        }
+	    }]);
+	
+	    return Player;
+	}(_react2.default.Component);
+	
+	exports.default = Player;
+
+/***/ },
+
+/***/ 349:
+/*!********************************!*\
+  !*** ./app/components/Main.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 350);
+	
+	var _Suggestions2 = _interopRequireDefault(_Suggestions);
+	
+	var _Genres = __webpack_require__(/*! ./Genres */ 351);
+	
+	var _Genres2 = _interopRequireDefault(_Genres);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	    _inherits(Main, _React$Component);
+	
+	    function Main(props) {
+	        _classCallCheck(this, Main);
+	
+	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Main, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Suggestions2.default, null),
+	                _react2.default.createElement(_Genres2.default, null)
+	            );
+	        }
+	    }]);
+	
+	    return Main;
+	}(_react2.default.Component);
+	
+	exports.default = Main;
+
+/***/ },
+
+/***/ 350:
+/*!***************************************!*\
+  !*** ./app/components/Suggestions.js ***!
+  \***************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Movie = __webpack_require__(/*! ./Movie */ 346);
+	
+	var _Movie2 = _interopRequireDefault(_Movie);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Suggestions = function (_React$Component) {
+	    _inherits(Suggestions, _React$Component);
+	
+	    function Suggestions(props) {
+	        _classCallCheck(this, Suggestions);
+	
+	        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
+	
+	        _this.state = {
+	            suggestionCount: 20,
+	            suggestions: []
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Suggestions, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('api/movies/suggested/' + this.state.suggestionCount).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ suggestions: json.map(function (item, index, source) {
+	                            return item.value;
+	                        }) });
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                { style: { padding: '20px' } },
+	                _react2.default.createElement(
+	                    'h2',
+	                    { style: { color: _colors.grey200, fontSize: '2rem', marginTop: '0px' } },
+	                    'Suggestions'
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
+	                    this.state.suggestions.map(function (suggestion, index, source) {
+	                        return _react2.default.createElement(_Movie2.default, { key: suggestion.name, title: suggestion.name, image: suggestion.poster, subtitle: suggestion.year, first: index == 0, url: suggestion.link, last: index == source.length - 1 });
+	                    }, this)
+	                )
+	            );
+	        }
+	    }]);
+	
+	    return Suggestions;
+	}(_react2.default.Component);
+	
+	exports.default = Suggestions;
+
+/***/ },
+
 /***/ 351:
 /*!**********************************!*\
   !*** ./app/components/Genres.js ***!
@@ -1139,7 +1202,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 350);
+	var _Movie = __webpack_require__(/*! ./Movie */ 346);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
@@ -1216,6 +1279,88 @@ webpackJsonp([0],{
 	}(_react2.default.Component);
 	
 	exports.default = GenreSuggestions;
+
+/***/ },
+
+/***/ 1016:
+/*!*******************************************************!*\
+  !*** ./~/material-ui/svg-icons/toggle/star-border.js ***!
+  \*******************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 292);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleStarBorder = function ToggleStarBorder(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M22 9.24l-7.19-.62L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21 12 17.27 18.18 21l-1.63-7.03L22 9.24zM12 15.4l-3.76 2.27 1-4.28-3.32-2.88 4.38-.38L12 6.1l1.71 4.04 4.38.38-3.32 2.88 1 4.28L12 15.4z' })
+	  );
+	};
+	ToggleStarBorder = (0, _pure2.default)(ToggleStarBorder);
+	ToggleStarBorder.displayName = 'ToggleStarBorder';
+	ToggleStarBorder.muiName = 'SvgIcon';
+	
+	exports.default = ToggleStarBorder;
+
+/***/ },
+
+/***/ 1017:
+/*!************************************************!*\
+  !*** ./~/material-ui/svg-icons/toggle/star.js ***!
+  \************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 292);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ToggleStar = function ToggleStar(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z' })
+	  );
+	};
+	ToggleStar = (0, _pure2.default)(ToggleStar);
+	ToggleStar.displayName = 'ToggleStar';
+	ToggleStar.muiName = 'SvgIcon';
+	
+	exports.default = ToggleStar;
 
 /***/ }
 

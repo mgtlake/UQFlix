@@ -28,7 +28,8 @@
 					"type": "build",
 					"version": "1.0.0-preview2-final"
 				},
-				"Newtonsoft.Json": "9.0.1"
+      "Newtonsoft.Json": "9.0.1",
+      "CsvHelper": "2.16.0"
 	},
 
 	"tools": {

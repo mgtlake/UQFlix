@@ -11,6 +11,8 @@ using System.Diagnostics;
 using System.Text.RegularExpressions;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Linq;
+using CsvHelper;
+using System.IO;
 
 namespace UQFlix.Controllers {
 	[Route("api/[controller]")]
@@ -42,14 +44,25 @@ namespace UQFlix.Controllers {
 			}
 		}
 
-		[HttpGet("genre/{genre}/{n}")]
-		// GET: api/movies/genre/Action/5
-		public IActionResult GetGenre(string genre, string n) {
-			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre == genre).Any()) {
+		[HttpGet("suggestnext/{movie}")]
+		// GET: api/movies/suggestednext/Inception
+		public IActionResult GetSuggestNext(string movie) {
+			if (DataDict.IsEmpty) {
 				return Json(new object());
 			} else {
 				var rng = new Random();
-				return Ok(DataDict.ToList().Where(x => x.Value.genre == genre).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+				return Ok(DataDict.ToList().OrderBy(x => rng.Next()).First());
+			}
+		}
+
+		[HttpGet("genre/{genre}/{n}")]
+		// GET: api/movies/genre/Action/5
+		public IActionResult GetGenre(string genre, string n) {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre.ToLower().Contains(genre.ToLower())).Any()) {
+				return Json(new object());
+			} else {
+				var rng = new Random();
+				return Ok(DataDict.ToList().Where(x => x.Value.genre.ToLower().Contains(genre.ToLower())).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
 			}
 		}
 
@@ -63,6 +76,19 @@ namespace UQFlix.Controllers {
 				var rng = new Random();
 				return Ok(DataDict.ToList().Where(x => x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).OrderBy(x => rng.Next()).ToList());
 			}
+		}
+
+		[HttpGet("rate/{movie}/{rating}")]
+		// GET: api/search/iron man
+		public IActionResult Rate(string movie, string rating) {
+			using (var db = new MoviesContext()) {
+				var entry = new Rating() { movie = movie, rating = int.Parse(rating) };
+				if (!db.ratings.Contains(entry)) {
+					db.ratings.Add(entry);
+				}
+				db.SaveChanges();
+			}
+			return Ok();
 		}
 
 		[HttpGet("scrape")]
@@ -240,6 +266,91 @@ namespace UQFlix.Controllers {
 			} else {
 				return title;
 			}
+		}
+
+		[HttpGet("link")]
+		// GET: api/link
+		public IActionResult Link(string term) {
+			var moviesFile = System.IO.File.Open("movies.csv", FileMode.Open);
+			var modelFile = System.IO.File.Open("X-results.csv", FileMode.Open);
+			using (TextReader moviesReader = new StreamReader(moviesFile)) {
+				using (TextReader modelReader = new StreamReader(modelFile)) {
+					var movies = new CsvReader(moviesReader);
+					var moviesRecords = movies.GetRecords<csvMovie>().ToList();
+
+					var models = new CsvReader(modelReader);
+					var modelsRecords = models.GetRecords<csvModel>().ToList();
+
+					foreach (var name in DataDict.Keys) {
+						var title = name.ToLower();
+						if (title.Split(' ').First().ToLower() == "the") {
+							title = title.Remove(0, 4);
+						}
+						var rows = moviesRecords.Where(r => r.title.ToLower().Contains(title));
+						if (rows.Any()) {
+							var row = rows.First();
+							using (var db = new MoviesContext()) {
+								var model = modelsRecords[int.Parse(row.movieId) - 1];
+								var dbModel = new Model() {
+									movie = name,
+									values1 = float.Parse(model.values1),
+									values2 = float.Parse(model.values2),
+									values3 = float.Parse(model.values3),
+									values4 = float.Parse(model.values4),
+									values5 = float.Parse(model.values5),
+									values6 = float.Parse(model.values6),
+									values7 = float.Parse(model.values7),
+									values8 = float.Parse(model.values8),
+									values9 = float.Parse(model.values9),
+									values10 = float.Parse(model.values10),
+									values11 = float.Parse(model.values11),
+									values12 = float.Parse(model.values12),
+									values13 = float.Parse(model.values13),
+									values14 = float.Parse(model.values14),
+									values15 = float.Parse(model.values15),
+									values16 = float.Parse(model.values16),
+									values17 = float.Parse(model.values17),
+									values18 = float.Parse(model.values18)
+								};
+								db.models.Add(dbModel);
+								var dbMovie = db.movies.Where(m => m.name == name).First();
+								dbMovie.genre = row.genres;
+								db.SaveChanges();
+							}
+						}
+					}
+				}
+			}
+			
+
+			return Ok("Done");
+		}
+
+		private class csvMovie {
+			public string movieId { get; set; }
+			public string title { get; set; }
+			public string genres { get; set; }
+		}
+
+		public class csvModel {
+			public string values1 { get; set; }
+			public string values2 { get; set; }
+			public string values3 { get; set; }
+			public string values4 { get; set; }
+			public string values5 { get; set; }
+			public string values6 { get; set; }
+			public string values7 { get; set; }
+			public string values8 { get; set; }
+			public string values9 { get; set; }
+			public string values10 { get; set; }
+			public string values11 { get; set; }
+			public string values12 { get; set; }
+			public string values13 { get; set; }
+			public string values14 { get; set; }
+			public string values15 { get; set; }
+			public string values16 { get; set; }
+			public string values17 { get; set; }
+			public string values18 { get; set; }
 		}
 	}
 }

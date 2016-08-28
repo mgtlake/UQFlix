@@ -61,29 +61,34 @@ namespace UQFlix.Controllers {
 		[HttpGet("genres")]
 		// GET: api/movies/genres
 		public IActionResult GetGenres() {
-			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) => {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null).Select(x => new {
+                genres = x.Value.genre.Contains("|") ? x.Value.genre.Split('|') : new string[] {x.Value.genre}
+            }).SelectMany(x => x.genres).GroupBy(x => x, x => x, (key, g) => {
 				return new {
 					genre = g.First()
 				};
 			}).Any()) {
 				return Json(new object());
 			} else {
-				return Ok(DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) => {
-					return new {
-						genre = g.First().Value.genre
-					};
-				}));
+				return Ok(DataDict.ToList().Where(x => x.Value.genre != null).Select(x => new {
+                    genres = x.Value.genre.Contains("|") ? x.Value.genre.Split('|') : new string[] { x.Value.genre }
+                }).SelectMany(x => x.genres).GroupBy(x => x, x => x, (key, g) => {
+                    return new
+                    {
+                        genre = g.First()
+                    };
+                }));
 			}
 		}
 
 		[HttpGet("genre/{genre}/{n}")]
 		// GET: api/movies/genre/Action/5
 		public IActionResult GetGenre(string genre, string n) {
-			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre.ToLower().Contains(genre.ToLower())).Any()) {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower().Contains(genre.ToLower())).Any()) {
 				return Json(new object());
 			} else {
 				var rng = new Random();
-				return Ok(DataDict.ToList().Where(x => x.Value.genre.ToLower().Contains(genre.ToLower())).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+				return Ok(DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower().Contains(genre.ToLower())).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
 			}
 		}
 

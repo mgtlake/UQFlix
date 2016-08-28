@@ -865,7 +865,7 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
 	
 	        _this.state = {
-	            suggestionCount: 10,
+	            suggestionCount: 20,
 	            suggestions: []
 	        };
 	        return _this;
@@ -1016,9 +1016,13 @@ webpackJsonp([0],{
 	            var imgHeight = this.props.small ? height - 30 : height - 80;
 	            var padding = 20;
 	            var size = this.props.small ? 1.0 : 1.5;
-	            var img = this.props.image ? _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image }) : _react2.default.createElement(
+	            var img = this.props.image ? _react2.default.createElement(
 	                'div',
-	                { style: { position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 65px)', color: _colors.white } },
+	                { style: { transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms', position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' } },
+	                _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image })
+	            ) : _react2.default.createElement(
+	                'div',
+	                { style: { position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 55px)', color: _colors.white } },
 	                _react2.default.createElement(
 	                    'h2',
 	                    null,
@@ -1031,10 +1035,11 @@ webpackJsonp([0],{
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { position: 'relative', height: imgHeight + 'px', width: '100%' }, name: 'hovered', onMouseOver: this.handleEnter.bind(this), onMouseOut: this.handleLeave.bind(this) },
+	                    this.props.image == null ? null : img,
 	                    _react2.default.createElement(
 	                        'div',
 	                        { style: { transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms', position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%', backgroundColor: this.props.image ? 'rgba(33, 33, 33, ' + (this.state.hovered ? '0.75' : '0.0') + ')' : _colors.blueGrey200 } },
-	                        img,
+	                        this.props.image == null ? img : null,
 	                        _react2.default.createElement(
 	                            'div',
 	                            { style: { position: 'absolute', top: 'calc(50% - ' + (width - 40) / 2 + 'px)', left: 'calc(50% - ' + (width - 40) / 2 + 'px)' } },
@@ -1120,7 +1125,6 @@ webpackJsonp([0],{
 	            var that = this;
 	            fetch('api/movies/genres').then(function (response) {
 	                response.json().then(function (json) {
-	                    console.log(json);
 	                    that.setState({ genres: json });
 	                });
 	            });
@@ -1196,7 +1200,7 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (GenreSuggestions.__proto__ || Object.getPrototypeOf(GenreSuggestions)).call(this, props));
 	
 	        _this.state = {
-	            suggestionCount: 10,
+	            suggestionCount: 20,
 	            suggestions: []
 	        };
 	        return _this;
@@ -1335,15 +1339,47 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
 	
 	        _this.state = {
-	            hovered: false
+	            movie: null
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(Player, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ movie: json });
+	                });
+	            });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement('div', null);
+	            console.log("render");
+	            var player = _react2.default.createElement(
+	                'div',
+	                null,
+	                'Loading'
+	            );
+	            if (this.state.movie != null) {
+	                player = _react2.default.createElement(
+	                    'div',
+	                    { style: { background: _colors.grey900, padding: '20px' } },
+	                    _react2.default.createElement('video', { autoplay: true, controls: true, style: { margin: '0 auto', display: 'block' }, src: this.state.movie.link })
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                player
+	            );
 	        }
 	    }]);
 	

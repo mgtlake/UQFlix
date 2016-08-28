@@ -7,7 +7,7 @@ export default class GenreSuggestions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            suggestionCount: 10,
+            suggestionCount: 20,
             suggestions: []
         }
     }

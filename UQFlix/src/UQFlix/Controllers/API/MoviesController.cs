@@ -55,6 +55,24 @@ namespace UQFlix.Controllers {
 			}
 		}
 
+		[HttpGet("genres")]
+		// GET: api/movies/genres
+		public IActionResult GetGenres() {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) => {
+				return new {
+					genre = g.First()
+				};
+			}).Any()) {
+				return Json(new object());
+			} else {
+				return Ok(DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) => {
+					return new {
+						genre = g.First().Value.genre
+					};
+				}));
+			}
+		}
+
 		[HttpGet("genre/{genre}/{n}")]
 		// GET: api/movies/genre/Action/5
 		public IActionResult GetGenre(string genre, string n) {
@@ -141,7 +159,7 @@ namespace UQFlix.Controllers {
 					var video = getMovieLink(link);
 					if (video == null) {
 						continue;
-					} 
+					}
 					var movie = new Movie() { name = cleanTitle(title.TextContent.Trim()), link = video };
 					getMetadata(movie);
 					if (movie.description == null) {
@@ -152,11 +170,11 @@ namespace UQFlix.Controllers {
 						if (!db.movies.Contains(movie)) {
 							db.movies.Add(movie);
 						}
-					
+
 						db.SaveChanges();
 					} catch { }
 				}
-				
+
 			}
 
 			return new List<Tuple<string, string>> { new Tuple<string, string>("name", "filename") };
@@ -204,7 +222,7 @@ namespace UQFlix.Controllers {
 				Debug.WriteLine(url);
 				return null;
 			}
-			
+
 
 			var regex = new Regex(@"http://www.library.uq.edu.au/mget.php\?id=");
 			if (regex.Match(link).Success) {
@@ -216,7 +234,7 @@ namespace UQFlix.Controllers {
 				Debug.WriteLine(link);
 				return link;
 			}
-			
+
 		}
 
 		private void getMetadata(Movie movie) {
@@ -235,7 +253,7 @@ namespace UQFlix.Controllers {
 			movie.genre = json.Genre.Split(',').First();
 			movie.poster = json.Poster;
 		}
-		
+
 		private class omdb {
 			public string Title { get; set; }
 			public string Year { get; set; }
@@ -321,7 +339,7 @@ namespace UQFlix.Controllers {
 					}
 				}
 			}
-			
+
 
 			return Ok("Done");
 		}

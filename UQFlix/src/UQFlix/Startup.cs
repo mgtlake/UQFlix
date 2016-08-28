@@ -3,6 +3,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using System.Threading.Tasks;
 
 namespace UQFlix
 {
@@ -50,6 +51,12 @@ namespace UQFlix
                 routes.MapRoute(
                     name: "default",
                     template: "{controller=Home}/{action=Index}/{id?}");
+            });
+
+            app.Run(context =>
+            {
+                context.Response.Redirect("/");
+                return Task.FromResult<object>(null);
             });
         }
     }

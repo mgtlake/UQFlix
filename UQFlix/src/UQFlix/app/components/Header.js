@@ -28,7 +28,7 @@ export default class Header extends React.Component {
 
     render() {
         return (
-          <AppBar title="UQFlix" iconStyleLeft={{display: "none"}} iconElementRight={
+          <AppBar title="UQFlix 'n' Chill" iconStyleLeft={{display: "none"}} iconElementRight={
             <div>
               <TextField hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
               <div style={{marginLeft: '-24px', display: 'inline-block'}}>

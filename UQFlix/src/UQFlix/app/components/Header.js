@@ -19,12 +19,20 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            value: 3,
+            seaarch: "",
         };
     }
 
     handleChange(event, index, value) {
         this.setState({value});
+    }
+
+    handleSearch(target, value) {
+        this.setState({search: value});
+    }
+
+    handleKeyDown(event) {
+        console.log(event.keyCode);
     }
 
     navigateHome() {
@@ -35,7 +43,7 @@ export default class Header extends React.Component {
         return (
           <AppBar onTitleTouchTap={this.navigateHome.bind(this)} title="UQFlix" iconStyleLeft={{display: "none"}} iconElementRight={
             <div>
-              <TextField hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
+              <TextField onKeyDown={this.handleKeyDown.bind(this)} hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
               <div style={{marginLeft: '-24px', display: 'inline-block'}}>
                 <div style={{top: '18px', position: 'absolute'}}>
                     <SearchIcon/>

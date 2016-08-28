@@ -93,11 +93,11 @@ namespace UQFlix.Controllers {
 		// GET: api/search/iron man
 		public IActionResult GetSearch(string term) {
 			term = term.Trim().ToLower();
-			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).Any()) {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).Any()) {
 				return Json(new object());
 			} else {
 				var rng = new Random();
-				return Ok(DataDict.ToList().Where(x => x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).OrderBy(x => rng.Next()).ToList());
+				return Ok(DataDict.ToList().Where(x => x.Value.genre != null && x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).OrderBy(x => rng.Next()).ToList());
 			}
 		}
 

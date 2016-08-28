@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import GenreSuggestions from './GenreSuggestions';
-import { white } from 'material-ui/styles/colors';
+import { white, grey200 } from 'material-ui/styles/colors';
 
 export default class Genres extends React.Component {
 
@@ -31,7 +31,7 @@ export default class Genres extends React.Component {
     render() {
         return (
           <div style={{padding: '20px'}}>
-            <h2 style={{color: white, fontSize: '2rem', marginTop: '0px'}}>Genres</h2>
+            <h2 style={{color: grey200, fontSize: '2rem', marginTop: '0px'}}>Genres</h2>
             {this.state.genres.map(function(item, index, source) {
                 return <GenreSuggestions style={{padding: `${index == 0 ? '0px' : '20px'} 0px ${index == source.length - 1 ? '0px' : '20px'} 0px`}} key={index} title={item.genre}/>
             }, this)}

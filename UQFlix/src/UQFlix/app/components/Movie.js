@@ -39,6 +39,7 @@ export default class Movie extends React.Component {
     }
 
     handlePlay() {
+        this.props.onPlay();
         browserHistory.push(`/movie/${this.props.title}`)
         //window.location.href = `${window.location.href}${window.location.href[window.location.href.length - 1] == '/' ? '' : '/'}movie/${this.props.title}`;
     }
@@ -54,7 +55,7 @@ export default class Movie extends React.Component {
                   <img style={{position: 'absolute', top: '0px', left: '0px', height: `${imgHeight}px`, width: '100%'}} src={this.props.image}/>
                 </div>
                 :
-                <div style={{position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 55px)', color: white}}>
+                <div style={{position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 55px)', color: grey200}}>
                     <h2>No Image</h2>
                 </div>
         return (
@@ -68,7 +69,7 @@ export default class Movie extends React.Component {
                   </div>
                 </div>
             </div>
-            <h3 style={{color: white, fontSize: `${size}rem`, marginBottom: '0.2rem', marginTop: '0.2rem'}}>{this.getTruncatedTitle()}</h3>
+            <h3 style={{color: grey200, fontSize: `${size}rem`, marginBottom: '0.2rem', marginTop: '0.2rem'}}>{this.getTruncatedTitle()}</h3>
             <small style={{color: grey200, fontSize: `${size}rem`}}>{this.props.subtitle}</small>
           </div>
       );

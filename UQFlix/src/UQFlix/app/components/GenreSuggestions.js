@@ -1,6 +1,6 @@
 ﻿import React from 'react';
 import Movie from './Movie';
-import { white } from 'material-ui/styles/colors';
+import { white, grey200 } from 'material-ui/styles/colors';
 
 export default class GenreSuggestions extends React.Component {
 
@@ -32,7 +32,7 @@ export default class GenreSuggestions extends React.Component {
     render() {
         return (
         <div style={Object.assign({}, this.props.style)}>
-            <h2 style={{color: white}}>{this.props.title}</h2>
+            <h2 style={{color: grey200}}>{this.props.title}</h2>
             <div style={{overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap'}}>
             {this.state.suggestions.map(function(item, index, source) {
                 return <Movie key={index} title={item.name} image={item.poster} subtitle={item.year} first={index == 0} last={index == source.length - 1} url={item.link} small={true}/>

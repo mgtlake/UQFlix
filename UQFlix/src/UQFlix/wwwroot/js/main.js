@@ -26,35 +26,35 @@ webpackJsonp([0],{
 	
 	var _index2 = _interopRequireDefault(_index);
 	
-	var _Home = __webpack_require__(/*! ./components/Home */ 558);
+	var _Home = __webpack_require__(/*! ./components/Home */ 256);
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Player = __webpack_require__(/*! ./components/Player */ 1019);
+	var _Player = __webpack_require__(/*! ./components/Player */ 346);
 	
 	var _Player2 = _interopRequireDefault(_Player);
 	
-	var _Main = __webpack_require__(/*! ./components/Main */ 1020);
+	var _Main = __webpack_require__(/*! ./components/Main */ 348);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 658);
+	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 353);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
-	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 664);
+	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 359);
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 	
-	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 665);
+	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 360);
 	
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
-	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 606);
+	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 304);
 	
-	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 772);
+	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 467);
 	
 	var _spacing2 = _interopRequireDefault(_spacing);
 	
@@ -165,361 +165,13 @@ webpackJsonp([0],{
 	
 	var _redux = __webpack_require__(/*! redux */ 236);
 	
-	var _cardReducer = __webpack_require__(/*! ./cardReducer */ 256);
-	
-	var _cardReducer2 = _interopRequireDefault(_cardReducer);
-	
-	var _draftCardReducer = __webpack_require__(/*! ./draftCardReducer */ 557);
-	
-	var _draftCardReducer2 = _interopRequireDefault(_draftCardReducer);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var reducers = (0, _redux.combineReducers)({
-	  cards: _cardReducer2.default,
-	  draftCard: _draftCardReducer2.default
-	});
+	var reducers = (0, _redux.combineReducers)({});
 	
 	exports.default = reducers;
 
 /***/ },
 
 /***/ 256:
-/*!*************************************!*\
-  !*** ./app/reducers/cardReducer.js ***!
-  \*************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _constants = __webpack_require__(/*! ../constants */ 257);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _cardUtils = __webpack_require__(/*! ../cardUtils */ 258);
-	
-	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 555);
-	
-	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var initialState = [];
-	var initialAction = { type: 'initial state' };
-	
-	var cards = function cards() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	  var action = arguments.length <= 1 || arguments[1] === undefined ? initialAction : arguments[1];
-	
-	  switch (action.type) {
-	    case _constants2.default.FETCH_CARDS_SUCCESS:
-	      return action.payload.response;
-	    /*
-	     * Card Creation
-	     */
-	    case _constants2.default.CREATE_CARD:
-	      return (0, _reactAddonsUpdate2.default)(state, { $push: [action.payload.card] });
-	
-	    case _constants2.default.CREATE_CARD_SUCCESS:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.card.id);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        id: { $set: action.payload.response.id }
-	      }));
-	
-	    case _constants2.default.CREATE_CARD_ERROR:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.card.id);
-	      return (0, _reactAddonsUpdate2.default)(state, { $splice: [[cardIndex, 1]] });
-	
-	    /*
-	     * Card Status Toggle
-	     */
-	    case _constants2.default.TOGGLE_CARD_DETAILS:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        showDetails: { $apply: function $apply(currentValue) {
-	            return currentValue !== false ? false : true;
-	          } }
-	      }));
-	
-	    /*
-	     * Card Update
-	     */
-	    case _constants2.default.UPDATE_CARD:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.card.id);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        $set: action.payload.draftCard
-	      }));
-	
-	    case _constants2.default.UPDATE_CARD_ERROR:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.card.id);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        $set: action.payload.card
-	      }));
-	
-	    /*
-	     * Card Drag'n Drop
-	     */
-	    case _constants2.default.UPDATE_CARD_POSITION:
-	      if (action.payload.cardId !== action.payload.afterId) {
-	        cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	        var card = state[cardIndex];
-	        var afterIndex = (0, _cardUtils.getCardIndex)(state, action.payload.afterId);
-	        return (0, _reactAddonsUpdate2.default)(state, {
-	          $splice: [[cardIndex, 1], [afterIndex, 0, card]]
-	        });
-	      }
-	
-	    case _constants2.default.UPDATE_CARD_STATUS:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        status: { $set: action.payload.listId }
-	      }));
-	
-	    case _constants2.default.PERSIST_CARD_DRAG_ERROR:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardProps.id);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        status: { $set: action.cardProps.status }
-	      }));
-	
-	    /*
-	     * Task Creation
-	     */
-	    case _constants2.default.CREATE_TASK:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: { $push: [action.payload.task] }
-	      }));
-	
-	    case _constants2.default.CREATE_TASK_SUCCESS:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      taskIndex = state[cardIndex].tasks.findIndex(function (task) {
-	        return task.id == action.payload.task.id;
-	      });
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: _defineProperty({}, taskIndex, {
-	          id: { $set: action.payload.response.id }
-	        })
-	      }));
-	
-	    case _constants2.default.CREATE_TASK_ERROR:
-	      var cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      var taskIndex = state[cardIndex].tasks.findIndex(function (task) {
-	        return task.id == action.payload.task.id;
-	      });
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: {
-	          $splice: [[taskIndex, 1]]
-	        }
-	      }));
-	
-	    /*
-	     * Task Deletion
-	     */
-	    case _constants2.default.DELETE_TASK:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: { $splice: [[action.payload.taskIndex, 1]] }
-	      }));
-	
-	    case _constants2.default.DELETE_TASK_ERROR:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: { $splice: [[action.payload.taskIndex, 0, action.payload.task]] }
-	      }));
-	
-	    /*
-	     * Task Toggling
-	     */
-	    case _constants2.default.TOGGLE_TASK:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: _defineProperty({}, action.payload.taskIndex, { done: { $apply: function $apply(done) {
-	              return !done;
-	            } } })
-	      }));
-	
-	    case _constants2.default.TOGGLE_TASK_ERROR:
-	      cardIndex = (0, _cardUtils.getCardIndex)(state, action.payload.cardId);
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, cardIndex, {
-	        tasks: _defineProperty({}, action.payload.taskIndex, { done: { $apply: function $apply(done) {
-	              return !done;
-	            } } })
-	      }));
-	
-	    default:
-	      return state;
-	  }
-	};
-	
-	exports.default = cards;
-
-/***/ },
-
-/***/ 257:
-/*!**************************!*\
-  !*** ./app/constants.js ***!
-  \**************************/
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	exports.default = {
-	
-	  //API_URL: 'http://kanbanapi.pro-react.com';    //original value
-	
-	  API_URL: 'http://localhost:55685/api', //reads from ASP.NET CORE 
-	
-	  CARD: 'card',
-	
-	  FETCH_CARDS: 'fetch cards',
-	  FETCH_CARDS_SUCCESS: 'fetch cards success',
-	  FETCH_CARDS_ERROR: 'fetch cards error',
-	
-	  TOGGLE_CARD_DETAILS: 'toggle card details',
-	
-	  CREATE_CARD: 'create card',
-	  CREATE_CARD_SUCCESS: 'create card success',
-	  CREATE_CARD_ERROR: 'create card error',
-	
-	  UPDATE_CARD: 'update card',
-	  UPDATE_CARD_SUCCESS: 'update card success',
-	  UPDATE_CARD_ERROR: 'update card error',
-	
-	  UPDATE_CARD_STATUS: 'update card status',
-	
-	  UPDATE_CARD_POSITION: 'update card position',
-	
-	  PERSIST_CARD_DRAG: 'persist card drag',
-	  PERSIST_CARD_DRAG_SUCCESS: 'persist card drag success',
-	  PERSIST_CARD_DRAG_ERROR: 'persist card drag error',
-	
-	  CREATE_DRAFT: 'create draft',
-	  UPDATE_DRAFT: 'update draft',
-	
-	  CREATE_TASK: 'create task',
-	  CREATE_TASK_SUCCESS: 'create task success',
-	  CREATE_TASK_ERROR: 'create task error',
-	
-	  DELETE_TASK: 'delete task',
-	  DELETE_TASK_SUCCESS: 'delete task success',
-	  DELETE_TASK_ERROR: 'delete task error',
-	
-	  TOGGLE_TASK: 'toggle task',
-	  TOGGLE_TASK_SUCCESS: 'toggle task success',
-	  TOGGLE_TASK_ERROR: 'toggle task error'
-	
-	};
-
-/***/ },
-
-/***/ 258:
-/*!**************************!*\
-  !*** ./app/cardUtils.js ***!
-  \**************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.getCard = getCard;
-	exports.getCardIndex = getCardIndex;
-	
-	var _babelPolyfill = __webpack_require__(/*! babel-polyfill */ 259);
-	
-	function getCard(cards, id) {
-	    if (!Array.isArray(cards)) {
-	        throw new Error('cards must be an array.');
-	    }
-	    return cards.find(function (card) {
-	        return card.id == id;
-	    });
-	};
-	
-	function getCardIndex(cards, id) {
-	    if (!Array.isArray(cards)) {
-	        throw new Error('cards must be an array.');
-	    }
-	    return cards.findIndex(function (card) {
-	        return card.id == id;
-	    });
-	};
-
-/***/ },
-
-/***/ 557:
-/*!******************************************!*\
-  !*** ./app/reducers/draftCardReducer.js ***!
-  \******************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _constants = __webpack_require__(/*! ../constants */ 257);
-	
-	var _constants2 = _interopRequireDefault(_constants);
-	
-	var _reactAddonsUpdate = __webpack_require__(/*! react-addons-update */ 555);
-	
-	var _reactAddonsUpdate2 = _interopRequireDefault(_reactAddonsUpdate);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
-	
-	var initialState = {
-	  id: Date.now(),
-	  title: '',
-	  description: '',
-	  status: 'todo',
-	  color: '#c9c9c9',
-	  tasks: []
-	};
-	var initialAction = { type: 'initial state' };
-	
-	var draftCard = function draftCard() {
-	  var state = arguments.length <= 0 || arguments[0] === undefined ? initialState : arguments[0];
-	  var action = arguments.length <= 1 || arguments[1] === undefined ? initialAction : arguments[1];
-	
-	  switch (action.type) {
-	    case _constants2.default.CREATE_DRAFT:
-	      if (action.payload.card) {
-	        return (0, _reactAddonsUpdate2.default)(state, {
-	          $set: action.payload.card
-	        });
-	      } else {
-	        return initialState;
-	      }
-	
-	    case _constants2.default.UPDATE_DRAFT:
-	      return (0, _reactAddonsUpdate2.default)(state, _defineProperty({}, action.payload.field, {
-	        $set: action.payload.value
-	      }));
-	
-	    default:
-	      return state;
-	  }
-	};
-	
-	exports.default = draftCard;
-
-/***/ },
-
-/***/ 558:
 /*!********************************!*\
   !*** ./app/components/Home.js ***!
   \********************************/
@@ -537,13 +189,19 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Header = __webpack_require__(/*! ./Header */ 559);
+	var _Header = __webpack_require__(/*! ./Header */ 257);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(/*! ./Footer */ 647);
+	var _Footer = __webpack_require__(/*! ./Footer */ 345);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
+	
+	var _Movie = __webpack_require__(/*! ./Movie */ 350);
+	
+	var _Movie2 = _interopRequireDefault(_Movie);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -562,7 +220,9 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Home.__proto__ || Object.getPrototypeOf(Home)).call(this, props));
 	
 	        _this.state = {
-	            value: 3
+	            results: [],
+	            search: "",
+	            stamp: 0
 	        };
 	        return _this;
 	    }
@@ -573,16 +233,63 @@ webpackJsonp([0],{
 	            this.setState({ value: value });
 	        }
 	    }, {
+	        key: 'handleSearch',
+	        value: function handleSearch(target, search) {
+	            if (search.length > 0) {
+	                var that = this;
+	                var stamp = new Date().getTime();
+	                fetch('api/movies/search/' + search).then(function (response) {
+	                    if (stamp >= that.state.stamp) {
+	                        response.json().then(function (json) {
+	                            that.setState({ results: json.map(function (item, index, source) {
+	                                    return item.value;
+	                                }), search: search, stamp: stamp });
+	                        });
+	                    }
+	                });
+	            } else {
+	                this.setState({ search: search });
+	            }
+	        }
+	    }, {
+	        key: 'removeSearch',
+	        value: function removeSearch() {
+	            this.setState({ seaarch: "" });
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
+	            var that = this;
+	            var search = _react2.default.createElement(
+	                'div',
+	                { style: { color: _colors.white, padding: '20px' } },
+	                _react2.default.createElement(
+	                    'h2',
+	                    { style: { color: _colors.grey200, fontSize: '2rem', marginTop: '0px' } },
+	                    'Search results for \'',
+	                    this.state.search,
+	                    '\''
+	                ),
+	                _react2.default.createElement(
+	                    'div',
+	                    { style: { overflowX: 'none', overflowY: 'auto', whiteSpace: 'nowrap' } },
+	                    this.state.results.map(function (result, index, source) {
+	                        return _react2.default.createElement(_Movie2.default, { key: result.name, title: result.name, image: result.poster, subtitle: result.year, first: index == 0, url: result.link, last: index == source.length - 1, search: true, onPlay: function onPlay() {
+	                                that.removeSearch.call(that);
+	                            } });
+	                    }, this)
+	                )
+	            );
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Header2.default, null),
+	                _react2.default.createElement(_Header2.default, { onSearch: function onSearch(target, search) {
+	                        that.handleSearch.call(that, target, search);
+	                    } }),
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { height: 'calc(100% - 64px)', overflowY: 'auto', display: 'block', position: 'absolute', width: '100%' } },
-	                    this.props.children
+	                    this.state.search.length > 0 ? search : this.props.children
 	                )
 	            );
 	        }
@@ -595,7 +302,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 559:
+/***/ 257:
 /*!**********************************!*\
   !*** ./app/components/Header.js ***!
   \**********************************/
@@ -613,47 +320,49 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 560);
+	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 258);
 	
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 	
-	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 619);
+	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 317);
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
-	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 621);
+	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 319);
 	
 	var _FontIcon2 = _interopRequireDefault(_FontIcon);
 	
-	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 625);
+	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 323);
 	
 	var _expandMore2 = _interopRequireDefault(_expandMore);
 	
-	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 627);
+	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 325);
 	
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 	
-	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 628);
+	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 326);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 634);
+	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 332);
 	
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 	
-	var _TextField = __webpack_require__(/*! material-ui/TextField */ 636);
+	var _TextField = __webpack_require__(/*! material-ui/TextField */ 334);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
 	
-	var _AppBar = __webpack_require__(/*! material-ui/AppBar */ 642);
+	var _AppBar = __webpack_require__(/*! material-ui/AppBar */ 340);
 	
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 	
-	var _search = __webpack_require__(/*! material-ui/svg-icons/action/search */ 645);
+	var _search = __webpack_require__(/*! material-ui/svg-icons/action/search */ 343);
 	
 	var _search2 = _interopRequireDefault(_search);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _reactRouter = __webpack_require__(/*! react-router */ 168);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -672,7 +381,7 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 	
 	        _this.state = {
-	            value: 3
+	            seaarch: ""
 	        };
 	        return _this;
 	    }
@@ -683,12 +392,27 @@ webpackJsonp([0],{
 	            this.setState({ value: value });
 	        }
 	    }, {
+	        key: 'handleSearch',
+	        value: function handleSearch(target, value) {
+	            this.setState({ search: value });
+	        }
+	    }, {
+	        key: 'handleKeyDown',
+	        value: function handleKeyDown(event) {
+	            console.log(event.keyCode);
+	        }
+	    }, {
+	        key: 'navigateHome',
+	        value: function navigateHome() {
+	            _reactRouter.browserHistory.push('/');
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_AppBar2.default, { title: 'UQFlix \'n\' Chill', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
+	            return _react2.default.createElement(_AppBar2.default, { onTitleTouchTap: this.navigateHome.bind(this), title: 'UQFlix', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_TextField2.default, { hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
+	                    _react2.default.createElement(_TextField2.default, { onKeyDown: this.handleKeyDown.bind(this), hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { style: { marginLeft: '-24px', display: 'inline-block' } },
@@ -709,7 +433,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 645:
+/***/ 343:
 /*!**************************************************!*\
   !*** ./~/material-ui/svg-icons/action/search.js ***!
   \**************************************************/
@@ -725,11 +449,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _pure = __webpack_require__(/*! recompose/pure */ 594);
+	var _pure = __webpack_require__(/*! recompose/pure */ 292);
 	
 	var _pure2 = _interopRequireDefault(_pure);
 	
-	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
 	
 	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
 	
@@ -750,7 +474,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 647:
+/***/ 345:
 /*!**********************************!*\
   !*** ./app/components/Footer.js ***!
   \**********************************/
@@ -768,7 +492,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -824,7 +548,240 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 648:
+/***/ 346:
+/*!**********************************!*\
+  !*** ./app/components/Player.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 347);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = function (_React$Component) {
+	    _inherits(Player, _React$Component);
+	
+	    function Player(props) {
+	        _classCallCheck(this, Player);
+	
+	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+	
+	        _this.state = {
+	            movie: null
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Player, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ movie: json });
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            console.log("render");
+	            var player = _react2.default.createElement('div', null);
+	            if (this.state.movie != null) {
+	                player = _react2.default.createElement(
+	                    'div',
+	                    { style: { color: _colors.white } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { background: _colors.grey900, padding: '20px' } },
+	                        _react2.default.createElement('video', { autoplay: 'true', controls: true, style: { margin: '0 auto', display: 'block', width: (window.screen.width < 600 ? '100' : '60') + '%' }, src: this.state.movie.link })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { color: _colors.grey200, padding: '20px' } },
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '2rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            this.state.movie.name,
+	                            ' (',
+	                            this.state.movie.year,
+	                            ')'
+	                        ),
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '1.25rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            'Directed by ',
+	                            this.state.movie.director
+	                        ),
+	                        _react2.default.createElement(
+	                            'small',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.genre.split('|').join(', ')
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.description
+	                        )
+	                    )
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                player
+	            );
+	        }
+	    }]);
+	
+	    return Player;
+	}(_react2.default.Component);
+	
+	exports.default = Player;
+
+/***/ },
+
+/***/ 347:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 292);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 301);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AvPlayArrow = function AvPlayArrow(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
+	  );
+	};
+	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
+	AvPlayArrow.displayName = 'AvPlayArrow';
+	AvPlayArrow.muiName = 'SvgIcon';
+	
+	exports.default = AvPlayArrow;
+
+/***/ },
+
+/***/ 348:
+/*!********************************!*\
+  !*** ./app/components/Main.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 349);
+	
+	var _Suggestions2 = _interopRequireDefault(_Suggestions);
+	
+	var _Genres = __webpack_require__(/*! ./Genres */ 351);
+	
+	var _Genres2 = _interopRequireDefault(_Genres);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	    _inherits(Main, _React$Component);
+	
+	    function Main(props) {
+	        _classCallCheck(this, Main);
+	
+	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Main, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Suggestions2.default, null),
+	                _react2.default.createElement(_Genres2.default, null)
+	            );
+	        }
+	    }]);
+	
+	    return Main;
+	}(_react2.default.Component);
+	
+	exports.default = Main;
+
+/***/ },
+
+/***/ 349:
 /*!***************************************!*\
   !*** ./app/components/Suggestions.js ***!
   \***************************************/
@@ -842,11 +799,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 649);
+	var _Movie = __webpack_require__(/*! ./Movie */ 350);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -901,7 +858,7 @@ webpackJsonp([0],{
 	                { style: { padding: '20px' } },
 	                _react2.default.createElement(
 	                    'h2',
-	                    { style: { color: _colors.white, fontSize: '2rem', marginTop: '0px' } },
+	                    { style: { color: _colors.grey200, fontSize: '2rem', marginTop: '0px' } },
 	                    'Suggestions'
 	                ),
 	                _react2.default.createElement(
@@ -922,7 +879,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 649:
+/***/ 350:
 /*!*********************************!*\
   !*** ./app/components/Movie.js ***!
   \*********************************/
@@ -940,13 +897,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 347);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
 	var _reactRouter = __webpack_require__(/*! react-router */ 168);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1005,6 +962,7 @@ webpackJsonp([0],{
 	    }, {
 	        key: 'handlePlay',
 	        value: function handlePlay() {
+	            this.props.onPlay();
 	            _reactRouter.browserHistory.push('/movie/' + this.props.title);
 	            //window.location.href = `${window.location.href}${window.location.href[window.location.href.length - 1] == '/' ? '' : '/'}movie/${this.props.title}`;
 	        }
@@ -1022,7 +980,7 @@ webpackJsonp([0],{
 	                _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image })
 	            ) : _react2.default.createElement(
 	                'div',
-	                { style: { position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 55px)', color: _colors.white } },
+	                { style: { position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 55px)', color: _colors.grey200 } },
 	                _react2.default.createElement(
 	                    'h2',
 	                    null,
@@ -1049,7 +1007,7 @@ webpackJsonp([0],{
 	                ),
 	                _react2.default.createElement(
 	                    'h3',
-	                    { style: { color: _colors.white, fontSize: size + 'rem', marginBottom: '0.2rem', marginTop: '0.2rem' } },
+	                    { style: { color: _colors.grey200, fontSize: size + 'rem', marginBottom: '0.2rem', marginTop: '0.2rem' } },
 	                    this.getTruncatedTitle()
 	                ),
 	                _react2.default.createElement(
@@ -1068,7 +1026,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 650:
+/***/ 351:
 /*!**********************************!*\
   !*** ./app/components/Genres.js ***!
   \**********************************/
@@ -1086,11 +1044,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 651);
+	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 352);
 	
 	var _GenreSuggestions2 = _interopRequireDefault(_GenreSuggestions);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1142,7 +1100,7 @@ webpackJsonp([0],{
 	                { style: { padding: '20px' } },
 	                _react2.default.createElement(
 	                    'h2',
-	                    { style: { color: _colors.white, fontSize: '2rem', marginTop: '0px' } },
+	                    { style: { color: _colors.grey200, fontSize: '2rem', marginTop: '0px' } },
 	                    'Genres'
 	                ),
 	                this.state.genres.map(function (item, index, source) {
@@ -1159,7 +1117,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 651:
+/***/ 352:
 /*!********************************************!*\
   !*** ./app/components/GenreSuggestions.js ***!
   \********************************************/
@@ -1177,11 +1135,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 649);
+	var _Movie = __webpack_require__(/*! ./Movie */ 350);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 344);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1236,7 +1194,7 @@ webpackJsonp([0],{
 	                { style: Object.assign({}, this.props.style) },
 	                _react2.default.createElement(
 	                    'h2',
-	                    { style: { color: _colors.white } },
+	                    { style: { color: _colors.grey200 } },
 	                    this.props.title
 	                ),
 	                _react2.default.createElement(
@@ -1254,211 +1212,6 @@ webpackJsonp([0],{
 	}(_react2.default.Component);
 	
 	exports.default = GenreSuggestions;
-
-/***/ },
-
-/***/ 1018:
-/*!**************************************************!*\
-  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(/*! recompose/pure */ 594);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var AvPlayArrow = function AvPlayArrow(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
-	  );
-	};
-	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
-	AvPlayArrow.displayName = 'AvPlayArrow';
-	AvPlayArrow.muiName = 'SvgIcon';
-	
-	exports.default = AvPlayArrow;
-
-/***/ },
-
-/***/ 1019:
-/*!**********************************!*\
-  !*** ./app/components/Player.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
-	
-	var _playArrow2 = _interopRequireDefault(_playArrow);
-	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Player = function (_React$Component) {
-	    _inherits(Player, _React$Component);
-	
-	    function Player(props) {
-	        _classCallCheck(this, Player);
-	
-	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
-	
-	        _this.state = {
-	            movie: null
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Player, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.update();
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update() {
-	            var that = this;
-	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
-	                response.json().then(function (json) {
-	                    that.setState({ movie: json });
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            console.log("render");
-	            var player = _react2.default.createElement(
-	                'div',
-	                null,
-	                'Loading'
-	            );
-	            if (this.state.movie != null) {
-	                player = _react2.default.createElement(
-	                    'div',
-	                    { style: { background: _colors.grey900, padding: '20px' } },
-	                    _react2.default.createElement('video', { autoplay: true, controls: true, style: { margin: '0 auto', display: 'block' }, src: this.state.movie.link })
-	                );
-	            }
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                player
-	            );
-	        }
-	    }]);
-	
-	    return Player;
-	}(_react2.default.Component);
-	
-	exports.default = Player;
-
-/***/ },
-
-/***/ 1020:
-/*!********************************!*\
-  !*** ./app/components/Main.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 648);
-	
-	var _Suggestions2 = _interopRequireDefault(_Suggestions);
-	
-	var _Genres = __webpack_require__(/*! ./Genres */ 650);
-	
-	var _Genres2 = _interopRequireDefault(_Genres);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Main = function (_React$Component) {
-	    _inherits(Main, _React$Component);
-	
-	    function Main(props) {
-	        _classCallCheck(this, Main);
-	
-	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
-	
-	        _this.state = {
-	            value: 3
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Main, [{
-	        key: 'handleChange',
-	        value: function handleChange(event, index, value) {
-	            this.setState({ value: value });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Suggestions2.default, null),
-	                _react2.default.createElement(_Genres2.default, null)
-	            );
-	        }
-	    }]);
-	
-	    return Main;
-	}(_react2.default.Component);
-	
-	exports.default = Main;
 
 /***/ }
 

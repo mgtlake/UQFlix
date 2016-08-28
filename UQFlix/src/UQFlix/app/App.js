@@ -1,17 +1,18 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { Router, Route, browserHistory } from 'react-router';
+import { Router, IndexRoute, Route, browserHistory } from 'react-router';
 import { Provider } from 'react-redux';
 import reduxStore from './store/reduxStore';
 import reducers from './reducers/index';
 import Home from './components/Home';
-import Search from './components/Search';
+import Player from './components/Player';
+import Main from './components/Main';
 import injectTapEventPlugin from 'react-tap-event-plugin';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   cyan500, cyan700,
-  deepOrange900, yellow100, yellow500,
+  orange300, yellow100, yellow500,
   grey100, grey300, grey400, grey500,
   white, darkBlack, fullBlack, 
   blueGrey900, blueGrey800, blueGrey500,
@@ -30,7 +31,7 @@ const muiTheme = getMuiTheme({
         primary1Color: blueGrey800,
         primary2Color: blueGrey500,
         primary3Color: grey400,
-        accent1Color: deepOrange900,
+        accent1Color: orange300,
         accent2Color: yellow100,
         accent3Color: yellow500,
         textColor: white,
@@ -50,7 +51,8 @@ render((
       <Provider store={reduxStore}>
         <Router history={browserHistory}>
           <Route path="/" component={Home}>
-            <Route path="search/:query" component={Search} />
+            <IndexRoute component={Main} />
+            <Route path="movie/:movie" component={Player} />
           </Route>
         </Router>
       </Provider>

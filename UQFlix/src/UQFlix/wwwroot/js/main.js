@@ -30,27 +30,31 @@ webpackJsonp([0],{
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Search = __webpack_require__(/*! ./components/Search */ 640);
+	var _Player = __webpack_require__(/*! ./components/Player */ 1019);
 	
-	var _Search2 = _interopRequireDefault(_Search);
+	var _Player2 = _interopRequireDefault(_Player);
 	
-	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 641);
+	var _Main = __webpack_require__(/*! ./components/Main */ 1020);
+	
+	var _Main2 = _interopRequireDefault(_Main);
+	
+	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 658);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
-	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 647);
+	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 664);
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 	
-	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 648);
+	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 665);
 	
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
-	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 605);
+	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 606);
 	
-	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 756);
+	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 772);
 	
 	var _spacing2 = _interopRequireDefault(_spacing);
 	
@@ -67,7 +71,7 @@ webpackJsonp([0],{
 	    primary1Color: _colors.blueGrey800,
 	    primary2Color: _colors.blueGrey500,
 	    primary3Color: _colors.grey400,
-	    accent1Color: _colors.deepOrange900,
+	    accent1Color: _colors.orange300,
 	    accent2Color: _colors.yellow100,
 	    accent3Color: _colors.yellow500,
 	    textColor: _colors.white,
@@ -96,7 +100,8 @@ webpackJsonp([0],{
 	        _react2.default.createElement(
 	          _reactRouter.Route,
 	          { path: '/', component: _Home2.default },
-	          _react2.default.createElement(_reactRouter.Route, { path: 'search/:query', component: _Search2.default })
+	          _react2.default.createElement(_reactRouter.IndexRoute, { component: _Main2.default }),
+	          _react2.default.createElement(_reactRouter.Route, { path: 'movie/:movie', component: _Player2.default })
 	        )
 	      )
 	    )
@@ -532,21 +537,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Header = __webpack_require__(/*! ./Header */ 1013);
+	var _Header = __webpack_require__(/*! ./Header */ 559);
 	
 	var _Header2 = _interopRequireDefault(_Header);
 	
-	var _Footer = __webpack_require__(/*! ./Footer */ 1014);
+	var _Footer = __webpack_require__(/*! ./Footer */ 647);
 	
 	var _Footer2 = _interopRequireDefault(_Footer);
-	
-	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 1015);
-	
-	var _Suggestions2 = _interopRequireDefault(_Suggestions);
-	
-	var _Genres = __webpack_require__(/*! ./Genres */ 1018);
-	
-	var _Genres2 = _interopRequireDefault(_Genres);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -585,8 +582,7 @@ webpackJsonp([0],{
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { height: 'calc(100% - 64px)', overflowY: 'auto', display: 'block', position: 'absolute', width: '100%' } },
-	                    _react2.default.createElement(_Suggestions2.default, null),
-	                    _react2.default.createElement(_Genres2.default, null)
+	                    this.props.children
 	                )
 	            );
 	        }
@@ -599,173 +595,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 640:
-/*!**********************************!*\
-  !*** ./app/components/Search.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 559);
-	
-	var _IconMenu2 = _interopRequireDefault(_IconMenu);
-	
-	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 618);
-	
-	var _IconButton2 = _interopRequireDefault(_IconButton);
-	
-	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 620);
-	
-	var _FontIcon2 = _interopRequireDefault(_FontIcon);
-	
-	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 624);
-	
-	var _expandMore2 = _interopRequireDefault(_expandMore);
-	
-	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 626);
-	
-	var _MenuItem2 = _interopRequireDefault(_MenuItem);
-	
-	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 627);
-	
-	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
-	
-	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 633);
-	
-	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
-	
-	var _Toolbar = __webpack_require__(/*! material-ui/Toolbar */ 635);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Search = function (_React$Component) {
-	    _inherits(Search, _React$Component);
-	
-	    function Search(props) {
-	        _classCallCheck(this, Search);
-	
-	        var _this = _possibleConstructorReturn(this, (Search.__proto__ || Object.getPrototypeOf(Search)).call(this, props));
-	
-	        _this.state = {
-	            value: 3
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Search, [{
-	        key: 'handleChange',
-	        value: function handleChange(event, index, value) {
-	            this.setState({ value: value });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                _Toolbar.Toolbar,
-	                null,
-	                _react2.default.createElement(
-	                    _Toolbar.ToolbarGroup,
-	                    { firstChild: true },
-	                    _react2.default.createElement(
-	                        _DropDownMenu2.default,
-	                        { value: this.state.value, onChange: this.handleChange },
-	                        _react2.default.createElement(_MenuItem2.default, { value: 1, primaryText: 'All Broadcasts' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 2, primaryText: 'All Voice' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 3, primaryText: 'All Text' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 4, primaryText: 'Complete Voice' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 5, primaryText: 'Complete Text' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 6, primaryText: 'Active Voice' }),
-	                        _react2.default.createElement(_MenuItem2.default, { value: 7, primaryText: 'Active Text' })
-	                    )
-	                ),
-	                _react2.default.createElement(
-	                    _Toolbar.ToolbarGroup,
-	                    null,
-	                    _react2.default.createElement(_Toolbar.ToolbarTitle, { text: 'Options' }),
-	                    _react2.default.createElement(_FontIcon2.default, { className: 'muidocs-icon-custom-sort' }),
-	                    _react2.default.createElement(_Toolbar.ToolbarSeparator, null),
-	                    _react2.default.createElement(_RaisedButton2.default, { label: 'Create Broadcast', primary: true }),
-	                    _react2.default.createElement(
-	                        _IconMenu2.default,
-	                        { iconButtonElement: _react2.default.createElement(
-	                                _IconButton2.default,
-	                                { touch: true },
-	                                _react2.default.createElement(_expandMore2.default, null)
-	                            ) },
-	                        _react2.default.createElement(_MenuItem2.default, { primaryText: 'Download' }),
-	                        _react2.default.createElement(_MenuItem2.default, { primaryText: 'More Info' })
-	                    )
-	                )
-	            );
-	        }
-	    }]);
-	
-	    return Search;
-	}(_react2.default.Component);
-	
-	exports.default = Search;
-
-/***/ },
-
-/***/ 1012:
-/*!**************************************************!*\
-  !*** ./~/material-ui/svg-icons/action/search.js ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(/*! recompose/pure */ 593);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 602);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var ActionSearch = function ActionSearch(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
-	  );
-	};
-	ActionSearch = (0, _pure2.default)(ActionSearch);
-	ActionSearch.displayName = 'ActionSearch';
-	ActionSearch.muiName = 'SvgIcon';
-	
-	exports.default = ActionSearch;
-
-/***/ },
-
-/***/ 1013:
+/***/ 559:
 /*!**********************************!*\
   !*** ./app/components/Header.js ***!
   \**********************************/
@@ -783,47 +613,47 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 559);
+	var _IconMenu = __webpack_require__(/*! material-ui/IconMenu */ 560);
 	
 	var _IconMenu2 = _interopRequireDefault(_IconMenu);
 	
-	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 618);
+	var _IconButton = __webpack_require__(/*! material-ui/IconButton */ 619);
 	
 	var _IconButton2 = _interopRequireDefault(_IconButton);
 	
-	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 620);
+	var _FontIcon = __webpack_require__(/*! material-ui/FontIcon */ 621);
 	
 	var _FontIcon2 = _interopRequireDefault(_FontIcon);
 	
-	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 624);
+	var _expandMore = __webpack_require__(/*! material-ui/svg-icons/navigation/expand-more */ 625);
 	
 	var _expandMore2 = _interopRequireDefault(_expandMore);
 	
-	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 626);
+	var _MenuItem = __webpack_require__(/*! material-ui/MenuItem */ 627);
 	
 	var _MenuItem2 = _interopRequireDefault(_MenuItem);
 	
-	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 627);
+	var _DropDownMenu = __webpack_require__(/*! material-ui/DropDownMenu */ 628);
 	
 	var _DropDownMenu2 = _interopRequireDefault(_DropDownMenu);
 	
-	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 633);
+	var _RaisedButton = __webpack_require__(/*! material-ui/RaisedButton */ 634);
 	
 	var _RaisedButton2 = _interopRequireDefault(_RaisedButton);
 	
-	var _TextField = __webpack_require__(/*! material-ui/TextField */ 805);
+	var _TextField = __webpack_require__(/*! material-ui/TextField */ 636);
 	
 	var _TextField2 = _interopRequireDefault(_TextField);
 	
-	var _AppBar = __webpack_require__(/*! material-ui/AppBar */ 800);
+	var _AppBar = __webpack_require__(/*! material-ui/AppBar */ 642);
 	
 	var _AppBar2 = _interopRequireDefault(_AppBar);
 	
-	var _search = __webpack_require__(/*! material-ui/svg-icons/action/search */ 1012);
+	var _search = __webpack_require__(/*! material-ui/svg-icons/action/search */ 645);
 	
 	var _search2 = _interopRequireDefault(_search);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -855,7 +685,7 @@ webpackJsonp([0],{
 	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_AppBar2.default, { title: 'UQFlix', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
+	            return _react2.default.createElement(_AppBar2.default, { title: 'UQFlix \'n\' Chill', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(_TextField2.default, { hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
@@ -879,7 +709,48 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 1014:
+/***/ 645:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/action/search.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 594);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var ActionSearch = function ActionSearch(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M15.5 14h-.79l-.28-.27C15.41 12.59 16 11.11 16 9.5 16 5.91 13.09 3 9.5 3S3 5.91 3 9.5 5.91 16 9.5 16c1.61 0 3.09-.59 4.23-1.57l.27.28v.79l5 4.99L20.49 19l-4.99-5zm-6 0C7.01 14 5 11.99 5 9.5S7.01 5 9.5 5 14 7.01 14 9.5 11.99 14 9.5 14z' })
+	  );
+	};
+	ActionSearch = (0, _pure2.default)(ActionSearch);
+	ActionSearch.displayName = 'ActionSearch';
+	ActionSearch.muiName = 'SvgIcon';
+	
+	exports.default = ActionSearch;
+
+/***/ },
+
+/***/ 647:
 /*!**********************************!*\
   !*** ./app/components/Footer.js ***!
   \**********************************/
@@ -897,7 +768,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -953,7 +824,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 1015:
+/***/ 648:
 /*!***************************************!*\
   !*** ./app/components/Suggestions.js ***!
   \***************************************/
@@ -971,11 +842,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 1017);
+	var _Movie = __webpack_require__(/*! ./Movie */ 649);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -994,27 +865,30 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Suggestions.__proto__ || Object.getPrototypeOf(Suggestions)).call(this, props));
 	
 	        _this.state = {
-	            suggestions: [{
-	                title: "Hurt Locker",
-	                year: "2009",
-	                description: "Shooty shooty pew pew!",
-	                image: "https://upload.wikimedia.org/wikipedia/en/6/6c/HLposterUSA2.jpg"
-	            }, {
-	                title: "Iron Man",
-	                year: "2008",
-	                description: "OMG its Robert Downey Jr.!",
-	                image: "https://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG"
-	            }, {
-	                title: "Inception",
-	                year: "2010",
-	                description: "Movie in a movie, wot?!?",
-	                image: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
-	            }]
+	            suggestionCount: 10,
+	            suggestions: []
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(Suggestions, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('api/movies/suggested/' + this.state.suggestionCount).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ suggestions: json.map(function (item, index, source) {
+	                            return item.value;
+	                        }) });
+	                });
+	            });
+	        }
+	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(event, index, value) {
 	            this.setState({ value: value });
@@ -1034,7 +908,7 @@ webpackJsonp([0],{
 	                    'div',
 	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
 	                    this.state.suggestions.map(function (suggestion, index, source) {
-	                        return _react2.default.createElement(_Movie2.default, { key: index, title: suggestion.title, image: suggestion.image, subtitle: suggestion.year, first: index == 0, last: index == source.length - 1 });
+	                        return _react2.default.createElement(_Movie2.default, { key: suggestion.name, title: suggestion.name, image: suggestion.poster, subtitle: suggestion.year, first: index == 0, url: suggestion.link, last: index == source.length - 1 });
 	                    }, this)
 	                )
 	            );
@@ -1048,7 +922,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 1017:
+/***/ 649:
 /*!*********************************!*\
   !*** ./app/components/Movie.js ***!
   \*********************************/
@@ -1066,7 +940,13 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _reactRouter = __webpack_require__(/*! react-router */ 168);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1093,6 +973,21 @@ webpackJsonp([0],{
 	    }
 	
 	    _createClass(Movie, [{
+	        key: 'getTruncatedTitle',
+	        value: function getTruncatedTitle() {
+	            var lower = this.props.small ? 14 : 17;
+	            var upper = this.props.small ? 17 : 20;
+	            if (this.props.title.length > lower) {
+	                if (this.props.title.length < upper) {
+	                    return this.props.title;
+	                } else {
+	                    return this.props.title.substring(0, lower) + '...';
+	                }
+	            } else {
+	                return this.props.title;
+	            }
+	        }
+	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(event, index, value) {
 	            this.setState(_defineProperty({}, event.target.name, value));
@@ -1108,6 +1003,12 @@ webpackJsonp([0],{
 	            this.setState({ hovered: false });
 	        }
 	    }, {
+	        key: 'handlePlay',
+	        value: function handlePlay() {
+	            _reactRouter.browserHistory.push('/movie/' + this.props.title);
+	            //window.location.href = `${window.location.href}${window.location.href[window.location.href.length - 1] == '/' ? '' : '/'}movie/${this.props.title}`;
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
 	            var height = this.props.small ? 230 : 440;
@@ -1115,19 +1016,36 @@ webpackJsonp([0],{
 	            var imgHeight = this.props.small ? height - 30 : height - 80;
 	            var padding = 20;
 	            var size = this.props.small ? 1.0 : 1.5;
+	            var img = this.props.image ? _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image }) : _react2.default.createElement(
+	                'div',
+	                { style: { position: 'absolute', top: 'calc(50% - 34px)', left: 'calc(50% - 65px)', color: _colors.white } },
+	                _react2.default.createElement(
+	                    'h2',
+	                    null,
+	                    'No Image'
+	                )
+	            );
 	            return _react2.default.createElement(
 	                'div',
 	                { style: { height: height + 'px', width: width + 'px', display: 'inline-block', margin: '0px ' + (this.props.last ? '0px' : padding + 'px') + ' 0px ' + (this.props.first ? '0px' : padding + 'px') } },
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { position: 'relative', height: imgHeight + 'px', width: '100%' }, name: 'hovered', onMouseOver: this.handleEnter.bind(this), onMouseOut: this.handleLeave.bind(this) },
-	                    _react2.default.createElement('img', { style: { position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%' }, src: this.props.image }),
-	                    _react2.default.createElement('div', { style: { transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms', position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%', opacity: this.state.hovered ? '0.75' : '0.0', backgroundColor: _colors.grey900 } })
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { transition: 'all 450ms cubic-bezier(0.23, 1, 0.32, 1) 0ms', position: 'absolute', top: '0px', left: '0px', height: imgHeight + 'px', width: '100%', backgroundColor: this.props.image ? 'rgba(33, 33, 33, ' + (this.state.hovered ? '0.75' : '0.0') + ')' : _colors.blueGrey200 } },
+	                        img,
+	                        _react2.default.createElement(
+	                            'div',
+	                            { style: { position: 'absolute', top: 'calc(50% - ' + (width - 40) / 2 + 'px)', left: 'calc(50% - ' + (width - 40) / 2 + 'px)' } },
+	                            _react2.default.createElement(_playArrow2.default, { style: { opacity: this.state.hovered ? 1.0 : 0.0, width: width - 40, height: width - 40, color: _colors.deepOrangeA400, cursor: 'pointer' }, onClick: this.handlePlay.bind(this) })
+	                        )
+	                    )
 	                ),
 	                _react2.default.createElement(
 	                    'h3',
 	                    { style: { color: _colors.white, fontSize: size + 'rem', marginBottom: '0.2rem', marginTop: '0.2rem' } },
-	                    this.props.title
+	                    this.getTruncatedTitle()
 	                ),
 	                _react2.default.createElement(
 	                    'small',
@@ -1145,7 +1063,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 1018:
+/***/ 650:
 /*!**********************************!*\
   !*** ./app/components/Genres.js ***!
   \**********************************/
@@ -1163,11 +1081,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 1019);
+	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 651);
 	
 	var _GenreSuggestions2 = _interopRequireDefault(_GenreSuggestions);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1186,48 +1104,28 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Genres.__proto__ || Object.getPrototypeOf(Genres)).call(this, props));
 	
 	        _this.state = {
-	            genres: [{
-	                title: "Action",
-	                items: [{
-	                    title: "Hurt Locker",
-	                    year: "2009",
-	                    description: "Shooty shooty pew pew!",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/6/6c/HLposterUSA2.jpg"
-	                }, {
-	                    title: "Iron Man",
-	                    year: "2008",
-	                    description: "OMG its Robert Downey Jr.!",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG"
-	                }, {
-	                    title: "Inception",
-	                    year: "2010",
-	                    description: "Movie in a movie, wot?!?",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
-	                }]
-	            }, {
-	                title: "Drama",
-	                items: [{
-	                    title: "Pulp Fiction",
-	                    year: "1994",
-	                    description: "Two mob hitmen",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/8/82/Pulp_Fiction_cover.jpg"
-	                }, {
-	                    title: "Gladiator",
-	                    year: "2000",
-	                    description: "Pretty much the Roman empire",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/8/8d/Gladiator_ver1.jpg"
-	                }, {
-	                    title: "Titanic",
-	                    year: "1997",
-	                    description: "Shit, we hit an iceberg!",
-	                    image: "https://upload.wikimedia.org/wikipedia/en/2/22/Titanic_poster.jpg"
-	                }]
-	            }]
+	            genres: []
 	        };
 	        return _this;
 	    }
 	
 	    _createClass(Genres, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('api/movies/genres').then(function (response) {
+	                response.json().then(function (json) {
+	                    console.log(json);
+	                    that.setState({ genres: json });
+	                });
+	            });
+	        }
+	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(event, index, value) {
 	            this.setState({ value: value });
@@ -1243,8 +1141,8 @@ webpackJsonp([0],{
 	                    { style: { color: _colors.white, fontSize: '2rem', marginTop: '0px' } },
 	                    'Genres'
 	                ),
-	                this.state.genres.map(function (genre, index, source) {
-	                    return _react2.default.createElement(_GenreSuggestions2.default, { style: { padding: (index == 0 ? '0px' : '20px') + ' 0px ' + (index == source.length - 1 ? '0px' : '20px') + ' 0px' }, key: index, title: genre.title, items: genre.items });
+	                this.state.genres.map(function (item, index, source) {
+	                    return _react2.default.createElement(_GenreSuggestions2.default, { style: { padding: (index == 0 ? '0px' : '20px') + ' 0px ' + (index == source.length - 1 ? '0px' : '20px') + ' 0px' }, key: index, title: item.genre });
 	                }, this)
 	            );
 	        }
@@ -1257,7 +1155,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 1019:
+/***/ 651:
 /*!********************************************!*\
   !*** ./app/components/GenreSuggestions.js ***!
   \********************************************/
@@ -1275,11 +1173,11 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 1017);
+	var _Movie = __webpack_require__(/*! ./Movie */ 649);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 755);
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
@@ -1295,10 +1193,33 @@ webpackJsonp([0],{
 	    function GenreSuggestions(props) {
 	        _classCallCheck(this, GenreSuggestions);
 	
-	        return _possibleConstructorReturn(this, (GenreSuggestions.__proto__ || Object.getPrototypeOf(GenreSuggestions)).call(this, props));
+	        var _this = _possibleConstructorReturn(this, (GenreSuggestions.__proto__ || Object.getPrototypeOf(GenreSuggestions)).call(this, props));
+	
+	        _this.state = {
+	            suggestionCount: 10,
+	            suggestions: []
+	        };
+	        return _this;
 	    }
 	
 	    _createClass(GenreSuggestions, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('api/movies/genre/' + this.props.title + '/' + this.state.suggestionCount).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ suggestions: json.map(function (item, index, source) {
+	                            return item.value;
+	                        }) });
+	                });
+	            });
+	        }
+	    }, {
 	        key: 'handleChange',
 	        value: function handleChange(event, index, value) {
 	            this.setState({ value: value });
@@ -1317,8 +1238,8 @@ webpackJsonp([0],{
 	                _react2.default.createElement(
 	                    'div',
 	                    { style: { overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap' } },
-	                    this.props.items.map(function (item, index, source) {
-	                        return _react2.default.createElement(_Movie2.default, { key: index, title: item.title, image: item.image, subtitle: item.year, first: index == 0, last: index == source.length - 1, small: true });
+	                    this.state.suggestions.map(function (item, index, source) {
+	                        return _react2.default.createElement(_Movie2.default, { key: index, title: item.name, image: item.poster, subtitle: item.year, first: index == 0, last: index == source.length - 1, url: item.link, small: true });
 	                    }, this)
 	                )
 	            );
@@ -1329,6 +1250,179 @@ webpackJsonp([0],{
 	}(_react2.default.Component);
 	
 	exports.default = GenreSuggestions;
+
+/***/ },
+
+/***/ 1018:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 594);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AvPlayArrow = function AvPlayArrow(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
+	  );
+	};
+	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
+	AvPlayArrow.displayName = 'AvPlayArrow';
+	AvPlayArrow.muiName = 'SvgIcon';
+	
+	exports.default = AvPlayArrow;
+
+/***/ },
+
+/***/ 1019:
+/*!**********************************!*\
+  !*** ./app/components/Player.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = function (_React$Component) {
+	    _inherits(Player, _React$Component);
+	
+	    function Player(props) {
+	        _classCallCheck(this, Player);
+	
+	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+	
+	        _this.state = {
+	            hovered: false
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Player, [{
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement('div', null);
+	        }
+	    }]);
+	
+	    return Player;
+	}(_react2.default.Component);
+	
+	exports.default = Player;
+
+/***/ },
+
+/***/ 1020:
+/*!********************************!*\
+  !*** ./app/components/Main.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 648);
+	
+	var _Suggestions2 = _interopRequireDefault(_Suggestions);
+	
+	var _Genres = __webpack_require__(/*! ./Genres */ 650);
+	
+	var _Genres2 = _interopRequireDefault(_Genres);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	    _inherits(Main, _React$Component);
+	
+	    function Main(props) {
+	        _classCallCheck(this, Main);
+	
+	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Main, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Suggestions2.default, null),
+	                _react2.default.createElement(_Genres2.default, null)
+	            );
+	        }
+	    }]);
+	
+	    return Main;
+	}(_react2.default.Component);
+	
+	exports.default = Main;
 
 /***/ }
 

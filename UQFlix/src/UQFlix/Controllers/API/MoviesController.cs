@@ -42,6 +42,32 @@ namespace UQFlix.Controllers {
 			}
 		}
 
+        [HttpGet("genres")]
+        // GET: api/movies/genres
+        public IActionResult GetGenres()
+        {
+            if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) =>
+            {
+                return new
+                {
+                    genre = g.First()
+                };
+            }).Any())
+            {
+                return Json(new object());
+            }
+            else
+            {
+                return Ok(DataDict.ToList().Where(x => x.Value.genre != null).GroupBy(x => x.Value.genre, x => x, (key, g) =>
+                {
+                    return new
+                    {
+                        genre = g.First().Value.genre
+                    };
+                }));
+            }
+        }
+
 		[HttpGet("genre/{genre}/{n}")]
 		// GET: api/movies/genre/Action/5
 		public IActionResult GetGenre(string genre, string n) {

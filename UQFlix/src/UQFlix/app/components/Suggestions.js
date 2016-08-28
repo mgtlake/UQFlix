@@ -7,27 +7,22 @@ export default class Suggestions extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            suggestions: [
-                {
-                    title: "Hurt Locker",
-                    year: "2009",
-                    description: "Shooty shooty pew pew!",
-                    image: "https://upload.wikimedia.org/wikipedia/en/6/6c/HLposterUSA2.jpg"
-                },
-                {
-                    title: "Iron Man",
-                    year: "2008",
-                    description: "OMG its Robert Downey Jr.!",
-                    image: "https://upload.wikimedia.org/wikipedia/en/7/70/Ironmanposter.JPG"
-                },
-                {
-                    title: "Inception",
-                    year: "2010",
-                    description: "Movie in a movie, wot?!?",
-                    image: "https://upload.wikimedia.org/wikipedia/en/2/2e/Inception_%282010%29_theatrical_poster.jpg"
-                }
-            ]
+            suggestionCount: 10,
+            suggestions: []
         };
+    }
+
+    componentDidMount() {
+        this.update();
+    }
+
+    update() {
+        var that = this;
+        fetch(`api/movies/suggested/${this.state.suggestionCount}`).then(function(response) {
+            response.json().then(function(json) {
+                that.setState({suggestions: json.map(function(item, index, source) { return item.value })});
+            })
+        })
     }
 
     handleChange(event, index, value) {
@@ -40,7 +35,7 @@ export default class Suggestions extends React.Component {
             <h2 style={{color: white, fontSize: '2rem', marginTop: '0px'}}>Suggestions</h2>
             <div style={{overflowX: 'auto', overflowY: 'none', whiteSpace: 'nowrap'}}>
                 {this.state.suggestions.map(function(suggestion, index, source) {
-                    return <Movie key={index} title={suggestion.title} image={suggestion.image} subtitle={suggestion.year} first={index == 0} last={index == source.length - 1}/>
+                    return <Movie key={suggestion.name} title={suggestion.name} image={suggestion.poster} subtitle={suggestion.year} first={index == 0} url={suggestion.link} last={index == source.length - 1}/>
                 }, this)}
             </div>
           </div>

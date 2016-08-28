@@ -234,7 +234,7 @@ webpackJsonp([0],{
 	        }
 	    }, {
 	        key: 'handleSearch',
-	        value: function handleSearch(target, search) {
+	        value: function handleSearch(search) {
 	            if (search.length > 0) {
 	                var that = this;
 	                var stamp = new Date().getTime();
@@ -254,7 +254,7 @@ webpackJsonp([0],{
 	    }, {
 	        key: 'removeSearch',
 	        value: function removeSearch() {
-	            this.setState({ seaarch: "" });
+	            this.setState({ search: "" });
 	        }
 	    }, {
 	        key: 'render',
@@ -283,8 +283,8 @@ webpackJsonp([0],{
 	            return _react2.default.createElement(
 	                'div',
 	                null,
-	                _react2.default.createElement(_Header2.default, { onSearch: function onSearch(target, search) {
-	                        that.handleSearch.call(that, target, search);
+	                _react2.default.createElement(_Header2.default, { onSearch: function onSearch(search) {
+	                        that.handleSearch.call(that, search);
 	                    } }),
 	                _react2.default.createElement(
 	                    'div',
@@ -381,7 +381,7 @@ webpackJsonp([0],{
 	        var _this = _possibleConstructorReturn(this, (Header.__proto__ || Object.getPrototypeOf(Header)).call(this, props));
 	
 	        _this.state = {
-	            seaarch: ""
+	            search: ""
 	        };
 	        return _this;
 	    }
@@ -399,7 +399,9 @@ webpackJsonp([0],{
 	    }, {
 	        key: 'handleKeyDown',
 	        value: function handleKeyDown(event) {
-	            console.log(event.keyCode);
+	            if (event.keyCode == 13) {
+	                this.props.onSearch(this.state.search);
+	            }
 	        }
 	    }, {
 	        key: 'navigateHome',
@@ -412,7 +414,7 @@ webpackJsonp([0],{
 	            return _react2.default.createElement(_AppBar2.default, { onTitleTouchTap: this.navigateHome.bind(this), title: 'UQFlix', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
 	                    'div',
 	                    null,
-	                    _react2.default.createElement(_TextField2.default, { onKeyDown: this.handleKeyDown.bind(this), hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
+	                    _react2.default.createElement(_TextField2.default, { onKeyDown: this.handleKeyDown.bind(this), onChange: this.handleSearch.bind(this), hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
 	                    _react2.default.createElement(
 	                        'div',
 	                        { style: { marginLeft: '-24px', display: 'inline-block' } },
@@ -962,7 +964,9 @@ webpackJsonp([0],{
 	    }, {
 	        key: 'handlePlay',
 	        value: function handlePlay() {
-	            this.props.onPlay();
+	            if (this.props.onPlay) {
+	                this.props.onPlay();
+	            }
 	            _reactRouter.browserHistory.push('/movie/' + this.props.title);
 	            //window.location.href = `${window.location.href}${window.location.href[window.location.href.length - 1] == '/' ? '' : '/'}movie/${this.props.title}`;
 	        }

@@ -19,7 +19,7 @@ export default class Home extends React.Component {
         this.setState({value});
     }
 
-    handleSearch(target, search) {
+    handleSearch(search) {
         if (search.length > 0) {
             var that = this;
             var stamp = new Date().getTime();
@@ -36,7 +36,7 @@ export default class Home extends React.Component {
     }
 
     removeSearch() {
-        this.setState({seaarch: ""});
+        this.setState({search: ""});
     }
 
     render() {
@@ -54,7 +54,7 @@ export default class Home extends React.Component {
         );
         return (
           <div>
-            <Header onSearch={function(target, search) {that.handleSearch.call(that, target, search);}}/>
+            <Header onSearch={function(search) {that.handleSearch.call(that, search);}}/>
             <div style={{height: 'calc(100% - 64px)', overflowY: 'auto', display: 'block', position: 'absolute', width: '100%'}}>
                 {this.state.search.length > 0 ? search : this.props.children}
             </div>

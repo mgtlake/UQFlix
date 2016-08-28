@@ -39,7 +39,9 @@ export default class Movie extends React.Component {
     }
 
     handlePlay() {
-        this.props.onPlay();
+        if (this.props.onPlay) {
+            this.props.onPlay();
+        }
         browserHistory.push(`/movie/${this.props.title}`)
         //window.location.href = `${window.location.href}${window.location.href[window.location.href.length - 1] == '/' ? '' : '/'}movie/${this.props.title}`;
     }

@@ -19,7 +19,7 @@ export default class Header extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            seaarch: "",
+            search: "",
         };
     }
 
@@ -32,7 +32,9 @@ export default class Header extends React.Component {
     }
 
     handleKeyDown(event) {
-        console.log(event.keyCode);
+        if (event.keyCode == 13) {
+            this.props.onSearch(this.state.search);
+        }
     }
 
     navigateHome() {
@@ -43,7 +45,7 @@ export default class Header extends React.Component {
         return (
           <AppBar onTitleTouchTap={this.navigateHome.bind(this)} title="UQFlix" iconStyleLeft={{display: "none"}} iconElementRight={
             <div>
-              <TextField onKeyDown={this.handleKeyDown.bind(this)} hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
+              <TextField onKeyDown={this.handleKeyDown.bind(this)} onChange={this.handleSearch.bind(this)} hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
               <div style={{marginLeft: '-24px', display: 'inline-block'}}>
                 <div style={{top: '18px', position: 'absolute'}}>
                     <SearchIcon/>

@@ -30,23 +30,23 @@ webpackJsonp([0],{
 	
 	var _Home2 = _interopRequireDefault(_Home);
 	
-	var _Player = __webpack_require__(/*! ./components/Player */ 1019);
+	var _Player = __webpack_require__(/*! ./components/Player */ 648);
 	
 	var _Player2 = _interopRequireDefault(_Player);
 	
-	var _Main = __webpack_require__(/*! ./components/Main */ 1020);
+	var _Main = __webpack_require__(/*! ./components/Main */ 649);
 	
 	var _Main2 = _interopRequireDefault(_Main);
 	
-	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 658);
+	var _reactTapEventPlugin = __webpack_require__(/*! react-tap-event-plugin */ 655);
 	
 	var _reactTapEventPlugin2 = _interopRequireDefault(_reactTapEventPlugin);
 	
-	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 664);
+	var _MuiThemeProvider = __webpack_require__(/*! material-ui/styles/MuiThemeProvider */ 661);
 	
 	var _MuiThemeProvider2 = _interopRequireDefault(_MuiThemeProvider);
 	
-	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 665);
+	var _getMuiTheme = __webpack_require__(/*! material-ui/styles/getMuiTheme */ 662);
 	
 	var _getMuiTheme2 = _interopRequireDefault(_getMuiTheme);
 	
@@ -54,7 +54,7 @@ webpackJsonp([0],{
 	
 	var _colorManipulator = __webpack_require__(/*! material-ui/utils/colorManipulator */ 606);
 	
-	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 772);
+	var _spacing = __webpack_require__(/*! material-ui/styles/spacing */ 769);
 	
 	var _spacing2 = _interopRequireDefault(_spacing);
 	
@@ -653,6 +653,8 @@ webpackJsonp([0],{
 	
 	var _search2 = _interopRequireDefault(_search);
 	
+	var _reactRouter = __webpack_require__(/*! react-router */ 168);
+	
 	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -683,9 +685,14 @@ webpackJsonp([0],{
 	            this.setState({ value: value });
 	        }
 	    }, {
+	        key: 'navigateHome',
+	        value: function navigateHome() {
+	            _reactRouter.browserHistory.push('/');
+	        }
+	    }, {
 	        key: 'render',
 	        value: function render() {
-	            return _react2.default.createElement(_AppBar2.default, { title: 'UQFlix \'n\' Chill', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
+	            return _react2.default.createElement(_AppBar2.default, { onTitleTouchTap: this.navigateHome.bind(this), title: 'UQFlix', iconStyleLeft: { display: "none" }, iconElementRight: _react2.default.createElement(
 	                    'div',
 	                    null,
 	                    _react2.default.createElement(_TextField2.default, { hintStyle: { color: _colors.grey400 }, inputStyle: { width: 'calc(100% - 24px)' }, hintText: 'Search' }),
@@ -825,6 +832,198 @@ webpackJsonp([0],{
 /***/ },
 
 /***/ 648:
+/*!**********************************!*\
+  !*** ./app/components/Player.js ***!
+  \**********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 652);
+	
+	var _playArrow2 = _interopRequireDefault(_playArrow);
+	
+	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Player = function (_React$Component) {
+	    _inherits(Player, _React$Component);
+	
+	    function Player(props) {
+	        _classCallCheck(this, Player);
+	
+	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
+	
+	        _this.state = {
+	            movie: null
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Player, [{
+	        key: 'componentDidMount',
+	        value: function componentDidMount() {
+	            this.update();
+	        }
+	    }, {
+	        key: 'update',
+	        value: function update() {
+	            var that = this;
+	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
+	                response.json().then(function (json) {
+	                    that.setState({ movie: json });
+	                });
+	            });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            console.log("render");
+	            var player = _react2.default.createElement('div', null);
+	            if (this.state.movie != null) {
+	                player = _react2.default.createElement(
+	                    'div',
+	                    { style: { color: _colors.white } },
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { background: _colors.grey900, padding: '20px' } },
+	                        _react2.default.createElement('video', { autoplay: 'true', controls: true, style: { margin: '0 auto', display: 'block', width: (window.screen.width < 600 ? '100' : '60') + '%' }, src: this.state.movie.link })
+	                    ),
+	                    _react2.default.createElement(
+	                        'div',
+	                        { style: { color: _colors.grey200, padding: '20px' } },
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '2rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            this.state.movie.name,
+	                            ' (',
+	                            this.state.movie.year,
+	                            ')'
+	                        ),
+	                        _react2.default.createElement(
+	                            'h1',
+	                            { style: { fontSize: '1.25rem', marginTop: '0.4rem', marginBottom: '0.4rem', color: _colors.white } },
+	                            'Directed by ',
+	                            this.state.movie.director
+	                        ),
+	                        _react2.default.createElement(
+	                            'small',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.genre.split('|').join(', ')
+	                        ),
+	                        _react2.default.createElement(
+	                            'p',
+	                            { style: { marginTop: '0.4rem', marginBottom: '0.4rem' } },
+	                            this.state.movie.description
+	                        )
+	                    )
+	                );
+	            }
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                player
+	            );
+	        }
+	    }]);
+	
+	    return Player;
+	}(_react2.default.Component);
+	
+	exports.default = Player;
+
+/***/ },
+
+/***/ 649:
+/*!********************************!*\
+  !*** ./app/components/Main.js ***!
+  \********************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 650);
+	
+	var _Suggestions2 = _interopRequireDefault(_Suggestions);
+	
+	var _Genres = __webpack_require__(/*! ./Genres */ 653);
+	
+	var _Genres2 = _interopRequireDefault(_Genres);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+	
+	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+	
+	var Main = function (_React$Component) {
+	    _inherits(Main, _React$Component);
+	
+	    function Main(props) {
+	        _classCallCheck(this, Main);
+	
+	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
+	
+	        _this.state = {
+	            value: 3
+	        };
+	        return _this;
+	    }
+	
+	    _createClass(Main, [{
+	        key: 'handleChange',
+	        value: function handleChange(event, index, value) {
+	            this.setState({ value: value });
+	        }
+	    }, {
+	        key: 'render',
+	        value: function render() {
+	            return _react2.default.createElement(
+	                'div',
+	                null,
+	                _react2.default.createElement(_Suggestions2.default, null),
+	                _react2.default.createElement(_Genres2.default, null)
+	            );
+	        }
+	    }]);
+	
+	    return Main;
+	}(_react2.default.Component);
+	
+	exports.default = Main;
+
+/***/ },
+
+/***/ 650:
 /*!***************************************!*\
   !*** ./app/components/Suggestions.js ***!
   \***************************************/
@@ -842,7 +1041,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 649);
+	var _Movie = __webpack_require__(/*! ./Movie */ 651);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
@@ -922,7 +1121,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 649:
+/***/ 651:
 /*!*********************************!*\
   !*** ./app/components/Movie.js ***!
   \*********************************/
@@ -940,7 +1139,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
+	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 652);
 	
 	var _playArrow2 = _interopRequireDefault(_playArrow);
 	
@@ -1068,7 +1267,48 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 650:
+/***/ 652:
+/*!**************************************************!*\
+  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
+  \**************************************************/
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	
+	var _react = __webpack_require__(/*! react */ 1);
+	
+	var _react2 = _interopRequireDefault(_react);
+	
+	var _pure = __webpack_require__(/*! recompose/pure */ 594);
+	
+	var _pure2 = _interopRequireDefault(_pure);
+	
+	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
+	
+	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
+	
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+	
+	var AvPlayArrow = function AvPlayArrow(props) {
+	  return _react2.default.createElement(
+	    _SvgIcon2.default,
+	    props,
+	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
+	  );
+	};
+	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
+	AvPlayArrow.displayName = 'AvPlayArrow';
+	AvPlayArrow.muiName = 'SvgIcon';
+	
+	exports.default = AvPlayArrow;
+
+/***/ },
+
+/***/ 653:
 /*!**********************************!*\
   !*** ./app/components/Genres.js ***!
   \**********************************/
@@ -1086,7 +1326,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 651);
+	var _GenreSuggestions = __webpack_require__(/*! ./GenreSuggestions */ 654);
 	
 	var _GenreSuggestions2 = _interopRequireDefault(_GenreSuggestions);
 	
@@ -1159,7 +1399,7 @@ webpackJsonp([0],{
 
 /***/ },
 
-/***/ 651:
+/***/ 654:
 /*!********************************************!*\
   !*** ./app/components/GenreSuggestions.js ***!
   \********************************************/
@@ -1177,7 +1417,7 @@ webpackJsonp([0],{
 	
 	var _react2 = _interopRequireDefault(_react);
 	
-	var _Movie = __webpack_require__(/*! ./Movie */ 649);
+	var _Movie = __webpack_require__(/*! ./Movie */ 651);
 	
 	var _Movie2 = _interopRequireDefault(_Movie);
 	
@@ -1254,211 +1494,6 @@ webpackJsonp([0],{
 	}(_react2.default.Component);
 	
 	exports.default = GenreSuggestions;
-
-/***/ },
-
-/***/ 1018:
-/*!**************************************************!*\
-  !*** ./~/material-ui/svg-icons/av/play-arrow.js ***!
-  \**************************************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	  value: true
-	});
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _pure = __webpack_require__(/*! recompose/pure */ 594);
-	
-	var _pure2 = _interopRequireDefault(_pure);
-	
-	var _SvgIcon = __webpack_require__(/*! ../../SvgIcon */ 603);
-	
-	var _SvgIcon2 = _interopRequireDefault(_SvgIcon);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	var AvPlayArrow = function AvPlayArrow(props) {
-	  return _react2.default.createElement(
-	    _SvgIcon2.default,
-	    props,
-	    _react2.default.createElement('path', { d: 'M8 5v14l11-7z' })
-	  );
-	};
-	AvPlayArrow = (0, _pure2.default)(AvPlayArrow);
-	AvPlayArrow.displayName = 'AvPlayArrow';
-	AvPlayArrow.muiName = 'SvgIcon';
-	
-	exports.default = AvPlayArrow;
-
-/***/ },
-
-/***/ 1019:
-/*!**********************************!*\
-  !*** ./app/components/Player.js ***!
-  \**********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _playArrow = __webpack_require__(/*! material-ui/svg-icons/av/play-arrow */ 1018);
-	
-	var _playArrow2 = _interopRequireDefault(_playArrow);
-	
-	var _colors = __webpack_require__(/*! material-ui/styles/colors */ 646);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Player = function (_React$Component) {
-	    _inherits(Player, _React$Component);
-	
-	    function Player(props) {
-	        _classCallCheck(this, Player);
-	
-	        var _this = _possibleConstructorReturn(this, (Player.__proto__ || Object.getPrototypeOf(Player)).call(this, props));
-	
-	        _this.state = {
-	            movie: null
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Player, [{
-	        key: 'componentDidMount',
-	        value: function componentDidMount() {
-	            this.update();
-	        }
-	    }, {
-	        key: 'update',
-	        value: function update() {
-	            var that = this;
-	            fetch('/api/movies/movie/' + this.props.params.movie).then(function (response) {
-	                response.json().then(function (json) {
-	                    that.setState({ movie: json });
-	                });
-	            });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            console.log("render");
-	            var player = _react2.default.createElement(
-	                'div',
-	                null,
-	                'Loading'
-	            );
-	            if (this.state.movie != null) {
-	                player = _react2.default.createElement(
-	                    'div',
-	                    { style: { background: _colors.grey900, padding: '20px' } },
-	                    _react2.default.createElement('video', { autoplay: true, controls: true, style: { margin: '0 auto', display: 'block' }, src: this.state.movie.link })
-	                );
-	            }
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                player
-	            );
-	        }
-	    }]);
-	
-	    return Player;
-	}(_react2.default.Component);
-	
-	exports.default = Player;
-
-/***/ },
-
-/***/ 1020:
-/*!********************************!*\
-  !*** ./app/components/Main.js ***!
-  \********************************/
-/***/ function(module, exports, __webpack_require__) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	
-	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
-	
-	var _react = __webpack_require__(/*! react */ 1);
-	
-	var _react2 = _interopRequireDefault(_react);
-	
-	var _Suggestions = __webpack_require__(/*! ./Suggestions */ 648);
-	
-	var _Suggestions2 = _interopRequireDefault(_Suggestions);
-	
-	var _Genres = __webpack_require__(/*! ./Genres */ 650);
-	
-	var _Genres2 = _interopRequireDefault(_Genres);
-	
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-	
-	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-	
-	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
-	
-	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	
-	var Main = function (_React$Component) {
-	    _inherits(Main, _React$Component);
-	
-	    function Main(props) {
-	        _classCallCheck(this, Main);
-	
-	        var _this = _possibleConstructorReturn(this, (Main.__proto__ || Object.getPrototypeOf(Main)).call(this, props));
-	
-	        _this.state = {
-	            value: 3
-	        };
-	        return _this;
-	    }
-	
-	    _createClass(Main, [{
-	        key: 'handleChange',
-	        value: function handleChange(event, index, value) {
-	            this.setState({ value: value });
-	        }
-	    }, {
-	        key: 'render',
-	        value: function render() {
-	            return _react2.default.createElement(
-	                'div',
-	                null,
-	                _react2.default.createElement(_Suggestions2.default, null),
-	                _react2.default.createElement(_Genres2.default, null)
-	            );
-	        }
-	    }]);
-	
-	    return Main;
-	}(_react2.default.Component);
-	
-	exports.default = Main;
 
 /***/ }
 

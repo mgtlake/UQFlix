@@ -9,6 +9,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import AppBar from 'material-ui/AppBar';
 import SearchIcon from 'material-ui/svg-icons/action/search';
+import { browserHistory } from 'react-router';
 import {
   white, grey400
 } from 'material-ui/styles/colors';
@@ -26,9 +27,13 @@ export default class Header extends React.Component {
         this.setState({value});
     }
 
+    navigateHome() {
+        browserHistory.push('/');
+    }
+
     render() {
         return (
-          <AppBar title="UQFlix 'n' Chill" iconStyleLeft={{display: "none"}} iconElementRight={
+          <AppBar onTitleTouchTap={this.navigateHome.bind(this)} title="UQFlix" iconStyleLeft={{display: "none"}} iconElementRight={
             <div>
               <TextField hintStyle={{color: grey400}} inputStyle={{width: 'calc(100% - 24px)'}} hintText="Search"/>
               <div style={{marginLeft: '-24px', display: 'inline-block'}}>

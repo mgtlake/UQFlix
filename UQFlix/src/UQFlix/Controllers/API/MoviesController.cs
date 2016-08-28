@@ -15,8 +15,8 @@ using Newtonsoft.Json.Linq;
 namespace UQFlix.Controllers {
 	[Route("api/[controller]")]
 	public class MoviesController : Controller {
-		private static readonly ConcurrentDictionary<long, Movie> DataDict =
-			 new ConcurrentDictionary<long, Movie>();
+		private readonly ConcurrentDictionary<string, Movie> DataDict =
+			 new ConcurrentDictionary<string, Movie>((new MoviesContext()).movies.ToDictionary(e => e.name));
 
 		[HttpGet]
 		// GET: api/movies
@@ -24,16 +24,37 @@ namespace UQFlix.Controllers {
 			return DataDict.Values;
 		}
 
-		[HttpGet("{id}")]
-		// GET: api/movies/5
-		public IActionResult Get(long id) {
+		[HttpGet("movie/{title}")]
+		// GET: api/movies/movie/Babel
+		public IActionResult Get(string title) {
 			Movie value = null;
-			return DataDict.TryGetValue(id, out value) ? (IActionResult) Ok(value) : NotFound();
+			return DataDict.TryGetValue(title, out value) ? (IActionResult) Ok(value) : Json(new object());
+		}
 
+		[HttpGet("suggested/{n}")]
+		// GET: api/movies/suggested/10
+		public IActionResult GetSuggested(string n) {
+			if (DataDict.IsEmpty) {
+				return Json(new object());
+			} else {
+				var rng = new Random();
+				return Ok(DataDict.ToList().OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+			}
+		}
+
+		[HttpGet("genre/{genre}/{n}")]
+		// GET: api/movies/genre/Action/5
+		public IActionResult GetGenre(string genre, string n) {
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre == genre).Any()) {
+				return Json(new object());
+			} else {
+				var rng = new Random();
+				return Ok(DataDict.ToList().Where(x => x.Value.genre == genre).OrderBy(x => rng.Next()).Take(int.Parse(n)).ToList());
+			}
 		}
 
 		[HttpGet("scrape")]
-		// GET: api/movies/5
+		// GET: api/movies/scrape
 		public IActionResult Scrape() {
 			var url = "http://search.library.uq.edu.au/primo_library/libweb/action/search.do?ct=facet&fctN=facet_tlevel&fctV=online_resources&rfnGrp=show_only&vl(982830058UI0)=sub&vl(982830125UI2)=any&&indx=1&fn=search&vl(75285841UI5)=00&dscnt=0&vl(1UIStartWith0)=contains&vl(75285843UI5)=00&vl(1UIStartWith2)=contains&mode=Advanced&vid=61UQ&vl(982830065UI1)=any&tab=61uq_all&vl(freeText3)=&vl(75285840UI5)=00&vl(982043576UI4)=all_items&vl(freeText1)=&vl(75285844UI5)=00&vl(75285833UI2)=AND&dstmp=1472205979926&frbg=&vl(75285845UI5)=Year&vl(1UIStartWith3)=contains&tb=t&vl(982829999UI3)=any&vl(1UIStartWith1)=contains&vl(1057736829UI6)=audio_video&ct=search&srt=rank&Submit=Search&vl(75285833UI3)=AND&vl(freeText2)=&vl(75285833UI1)=AND&dum=true&vl(75285835UI0)=AND&vl(freeText0)=feature%20film&vl(75285842UI5)=Year";
 			var count = getCount(url);
@@ -141,6 +162,8 @@ namespace UQFlix.Controllers {
 				} catch { }
 			}
 			if (link == null) {
+				var test = Regex.Match(source, @"mget.php\?id=.+?(?=<)");
+				Debug.WriteLine(url);
 				return null;
 			}
 			

@@ -79,6 +79,18 @@ namespace UQFlix.Controllers {
 			}
 		}
 
+		[HttpGet("search/{term}")]
+		// GET: api/search/iron man
+		public IActionResult GetSearch(string term) {
+			term = term.Trim().ToLower();
+			if (DataDict.IsEmpty || !DataDict.ToList().Where(x => x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).Any()) {
+				return Json(new object());
+			} else {
+				var rng = new Random();
+				return Ok(DataDict.ToList().Where(x => x.Value.genre.ToLower() == term || x.Value.name.ToLower().Contains(term)).OrderBy(x => rng.Next()).ToList());
+			}
+		}
+
 		[HttpGet("scrape")]
 		// GET: api/movies/scrape
 		public IActionResult Scrape() {

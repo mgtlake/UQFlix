@@ -19,7 +19,6 @@ export default class Genres extends React.Component {
         var that = this;
         fetch(`api/movies/genres`).then(function(response) {
             response.json().then(function(json) {
-                console.log(json);
                 that.setState({genres: json});
             })
         })

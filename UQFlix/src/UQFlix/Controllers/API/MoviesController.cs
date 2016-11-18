@@ -114,7 +114,10 @@ namespace UQFlix.Controllers {
 				if (!db.ratings.Contains(entry)) {
 					db.ratings.Add(entry);
 				}
-				db.SaveChanges();
+                try
+                {
+                    db.SaveChanges();
+                } catch { }
 			}
 			return Ok();
 		}
